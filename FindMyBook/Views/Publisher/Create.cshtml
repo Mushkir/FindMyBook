@@ -1,0 +1,149 @@
+﻿@model FindMyBook.Models.table_publisher
+
+@{
+    ViewBag.Title = "Add publisher detail";
+    Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+}
+
+<div class="container-fluid p-5 rounded-3 text-light" style="max-width: 800px; background-color: #0E223B; margin-bottom: 200px; margin-top: 80px">
+    @using (Html.BeginForm("Create", "Publisher", FormMethod.Post, new { id = "addPublisherForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h3 class="font-weight-bold">Adding new publisher info</h3>
+            <hr />
+
+            @* Publisher name *@
+            <div class="form-group mb-3">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.publisher_name, htmlAttributes: new { @class = "form-label mb-1" })
+                    <span class="text-danger">*</span>
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.publisher_name, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter publisher name" } })
+                    @Html.ValidationMessageFor(model => model.publisher_name, "", new { @class = "text-danger d-block mt-1" })
+                </div>
+            </div>
+
+            @* Address *@
+            <div class="form-group mb-3">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "form-label mb-1" })
+                    <span class="text-danger">*</span>
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter publisher adderss" } })
+                    @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger d-block mt-1" })
+                </div>
+            </div>
+
+            @* Email *@
+            <div class="form-group mb-3">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.publisher_email, htmlAttributes: new { @class = "form-label mb-1" })
+                    <span class="text-danger">*</span>
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.publisher_email, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter publisher email address" } })
+                    @Html.ValidationMessageFor(model => model.publisher_email, "", new { @class = "text-danger d-block mt-1" })
+                </div>
+            </div>
+
+            @* Country *@
+            <div class="form-group mb-3">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.country, htmlAttributes: new { @class = "form-label mb-1" })
+                    <span class="text-danger">*</span>
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.country, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter publisher country" } })
+                    @Html.ValidationMessageFor(model => model.country, "", new { @class = "text-danger d-block mt-1" })
+                </div>
+            </div>
+
+            @* Phone number *@
+            <div class="form-group mb-3">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.publisher_phone_number, htmlAttributes: new { @class = "form-label mb-1" })
+                    <span class="text-danger">*</span>
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.publisher_phone_number, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter publisher phone number" } })
+                    @Html.ValidationMessageFor(model => model.publisher_phone_number, "", new { @class = "text-danger d-block mt-1" })
+                </div>
+            </div>
+
+            @* Submit button *@
+            <div class="form-group mt-4">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-light font-weight-bold fs-6" style="width: 200px" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="text-danger">@ViewBag.Notification</label>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+    $(document).ready(function () {
+
+        $(document).on("submit", "#addPublisherForm", function (e) {
+
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            const formData = $(this).serialize();
+
+
+            $.ajax({
+                type: "POST",
+                url: '/Publisher/Create',
+                data: formData,
+                dataType: "json",
+                success: function (response) {
+                    // console.log(response);
+                    const { status, message } = response
+
+                    if (status == "200") {
+                        Swal.fire({
+                            title: "Publisher registered!",
+                            text: `Dear Admin! ${message}`,
+                            icon: "success"
+                        }).then((result) => {
+
+                            $("#addPublisherForm")[0].reset();
+                        });
+
+                    } else if (status == "409") {
+                        Swal.fire({
+                            title: "Data already exist!",
+                            text: `Dear Admin! ${message}`,
+                            icon: "error"
+
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Techinal error!",
+                            text: `Dear Admin! Currently a technical error occured! Please contact your IT support!`,
+                            icon: "error"
+                        })
+                    }
+
+                }, error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            })
+
+
+        })
+
+    })
+</script>
+}

@@ -1,0 +1,15 @@
+﻿
+@{
+    if (Session["CustomerName"] != null)
+    {
+        ViewBag.Title = Session["CustomerName"] + "'s Dashboard";
+
+    } else
+    {
+        ViewBag.Title = "Index";
+    }
+
+}
+
+<h2>From Customer Dashboard</h2>
+

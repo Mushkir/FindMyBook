@@ -1,0 +1,146 @@
+﻿@model FindMyBook.Models.table_author
+
+@{
+    if (Session["AdminName"] != null)
+    {
+        ViewBag.AdminName = $"{Session["AdminName"]}";
+        ViewBag.Title = "Add Author Detail";
+        Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+
+    }
+    else
+    {
+        ViewBag.Title = "Dashboard";
+        Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+    }
+}
+
+<div class="container-fluid p-5 rounded-3 text-light" style="max-width: 1100px; background-color: #0E223B; margin-bottom: 200px; margin-top: 80px">
+
+    @using (Html.BeginForm("AddAuthor", "Author", FormMethod.Post, new { id = "addAuthorForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h2 class="fw-semibold">Add Author</h2>
+
+            <hr />
+
+            <div class="form-group mb-3">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.author_name, htmlAttributes: new { @class = "form-label mb-1" })
+                    <span class="text-danger">*</span>
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.author_name, new { htmlAttributes = new { @class = "form-control shadow-none", @style = "background-color: #E5EDFA", @placeholder = "Enter author name" } })
+                    @Html.ValidationMessageFor(model => model.author_name, "", new { @class = "text-danger d-block mt-1" })
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.author_education, htmlAttributes: new { @class = "form-label mb-1" })
+                    <span class="text-danger">*</span>
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.author_education, new { htmlAttributes = new { @class = "form-control shadow-none", @style = "background-color: #E5EDFA", @placeholder = "Enter author education detail" } })
+                    @Html.ValidationMessageFor(model => model.author_education, "", new { @class = "text-danger d-block mt-1" })
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.author_country, htmlAttributes: new { @class = "form-label mb-1" })
+                    <span class="text-danger">*</span>
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.author_country, new { htmlAttributes = new { @class = "form-control shadow-none", @style = "background-color: #E5EDFA", @placeholder = "Enter author country name" } })
+                    @Html.ValidationMessageFor(model => model.author_country, "", new { @class = "text-danger d-block mt-1" })
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.number_of_published_books, htmlAttributes: new { @class = "form-label mb-1" })
+                    <span class="text-danger">*</span>
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.number_of_published_books, new { htmlAttributes = new { @class = "form-control shadow-none", @style = "background-color: #E5EDFA", @placeholder = "Enter number of published bookes detail" } })
+                    @Html.ValidationMessageFor(model => model.number_of_published_books, "", new { @class = "text-danger d-block mt-1" })
+                </div>
+            </div>
+
+            <div class="form-group mt-4">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" id="addAuthor" value="Add Author" class="btn btn-light fw-semibold" style="width: 200px" />
+                </div>
+            </div>
+
+            <div class="form-group mt-4">
+                <label class="text-danger">@ViewBag.Notification</label>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            $(document).on("submit", "#addAuthorForm", function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                const formData = $(this).serialize(); // Serialize the form data directly
+                $.ajax({
+                    type: "POST",
+                    url: '/Author/AddAuthor',
+                    data: formData,
+                    dataType: "json",
+                    success: function (response) {
+                        //console.log(response);
+                        const { status, message } = response
+
+                        if (status == "409") {
+                            Swal.fire({
+                                title: "Can't register!",
+                                text: `Dear Admin! ${message}`,
+                                icon: "error"
+                            });
+
+                        } else if (status == "200") {
+                            Swal.fire({
+                                title: "Record registered!",
+                                text: `Dear Admin! ${message}`,
+                                icon: "success"
+                            }).then((result) => {
+
+                                if (result.isConfirmed == true) {
+                                    $("#addAuthorForm")[0].reset();
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Technical error!",
+                                text: "Dear Admin! Currently a technical error occured! Please contact your IT support!",
+                                icon: "error"
+                            }).then((result) => {
+
+                                if (result.isConfirmed == true) {
+                                    $("#addAuthorForm")[0].reset();
+                                }
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+
+    </script>
+}

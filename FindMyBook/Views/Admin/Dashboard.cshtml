@@ -1,0 +1,17 @@
+﻿
+@{
+    if (Session["AdminName"] != null)
+    {
+        ViewBag.AdminName = $"{Session["AdminName"]}";
+        ViewBag.Title = $"{Session["AdminName"]}'s Dashboard";
+        Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+
+    } else
+    {
+        ViewBag.Title = "Dashboard";
+        Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+    }
+}
+
+<h2> Dashboard of Admin </h2>
+

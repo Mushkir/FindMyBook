@@ -1,0 +1,160 @@
+﻿@model FindMyBook.Models.table_author
+
+@{
+    ViewBag.Title = $"Delete {ViewBag.AuthorName}\'s record";
+    Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+}
+
+
+<div class="container-fluid p-5 rounded-3 text-light" style="max-width: 550px; background-color: #0E223B; margin-bottom: 200px; margin-top: 80px">
+    <div>
+        <h3>Are you sure you want to delete this?</h3>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.author_id)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.author_id)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.author_name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.author_name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.author_education)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.author_education)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.author_country)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.author_country)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.number_of_published_books)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.number_of_published_books)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm("DeleteAuthor", "Author", FormMethod.Post, new { @id = "deleteAuthorForm" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="d-flex align-items-center gap-4">
+                <input type="submit" value="Delete" class="btn btn-light fw-semibold w-100" id="deleteBtn" />
+                @Html.ActionLink("Back to List", "ManageAuthors", new { area = "" }, new { @class = "text-decoration-none btn border-light text-light w-100" })
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts{
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+    $(document).ready(function () {
+
+        $(document).on("submit", "#deleteAuthorForm", function (e) {
+
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            const formData = $(this).serialize();
+
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success ms-4",
+                    cancelButton: "btn btn-danger"
+                },
+                buttonsStyling: false
+            });
+            swalWithBootstrapButtons.fire({
+                title: "Are you sure to delete?",
+                text: "Dear Admin! You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "POST",
+                        url: '/Author/DeleteAuthor',
+                        data: formData,
+                        dataType: "json",
+                        success: function (response) {
+
+                            //console.log(response);
+                            const { status, message } = response;
+
+                            if (status == "200") {
+                                swalWithBootstrapButtons.fire({
+                                    title: "Deleted!",
+                                    text: `Dear Admin! ${message}`,
+                                    icon: "success"
+                                }).then((result) => {
+                                    if (result.isConfirmed == true) {
+                                        window.location.href = "/Author/ManageAuthors";
+                                    }
+                                });
+
+                            } else {
+                                swalWithBootstrapButtons.fire({
+                                    title: "Deleted!",
+                                    text: "Currently a technical error occured! Please contact your IT support.",
+                                    icon: "info"
+                                }).then((result) => {
+                                    if (result.isConfirmed == true) {
+                                        window.location.href = "/Author/ManageAuthors";
+                                    }
+                                });
+                            }
+
+
+                        }, error: function (xhr, status, error) {
+                            console.error(xhr.responseText);
+                        }
+
+                    })
+
+
+
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Cancelled",
+                        icon: "error"
+                    });
+                }
+            });
+
+
+
+
+        })
+    })
+</script>
+
+
+}

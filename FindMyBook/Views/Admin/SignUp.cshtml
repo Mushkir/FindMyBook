@@ -1,0 +1,146 @@
+﻿@model FindMyBook.Models.table_admin
+
+
+@{
+    ViewBag.Title = "Admin-Panel";
+    Layout = "~/Views/Shared/_Admin_Layout.cshtml";
+}
+
+
+<div class="container-fluid p-5 rounded-3 text-light" style="max-width: 1100px; background-color: #0E223B; margin-bottom: 200px; margin-top: 80px">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h2 class="font-weight-bold"> Admin SignUp</h2>
+            <hr />
+
+            @* First name, Last name, Email *@
+            <div class="form-group d-flex justify-content-between align-items-center gap-3 mb-3">
+                @* First name *@
+                <div class="w-100">
+                    <div class="d-flex">
+                        @Html.LabelFor(model => model.first_name, htmlAttributes: new { @class = "form-label mb-1 fw-semibold", @style = "letter-spacing: 0.3px" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.first_name, new { htmlAttributes = new { @class = "form-control shadow-none", @style = "background-color: #E5EDFA", @placeholder = "Enter your first name" } })
+                        @Html.ValidationMessageFor(model => model.first_name, "", new { @class = "text-danger mt-1 d-block" })
+                    </div>
+                </div>
+
+                @* Last name *@
+                <div class="w-100">
+                    <div class="d-flex">
+                        @Html.LabelFor(model => model.last_name, htmlAttributes: new { @class = "form-label mb-1 fw-semibold", @style = "letter-spacing: 0.3px" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.last_name, new { htmlAttributes = new { @class = "form-control shadow-none", @style = "background-color: #E5EDFA", @placeholder = "Enter your last name" } })
+                        @Html.ValidationMessageFor(model => model.last_name, "", new { @class = "text-danger mt-1 d-block" })
+                    </div>
+                </div>
+
+                @* Email *@
+                <div class="w-100">
+                    <div class="d-flex">
+                        @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "form-label mb-1 fw-semibold", @style = "letter-spacing: 0.3px" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control shadow-none", @style = "background-color: #E5EDFA", @placeholder = "Enter your email address" } })
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger mt-1 d-block" })
+                    </div>
+
+                </div>
+            </div>
+
+            @* Username, Password, Confirm Password *@
+            <div class="form-group d-flex justify-content-between align-items-center gap-3 mb-3">
+                @* Username *@
+                <div class="w-100">
+                    <div class="d-flex">
+                        @Html.LabelFor(model => model.username, htmlAttributes: new { @class = "form-label mb-1 fw-semibold", @style = "letter-spacing: 0.3px" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control shadow-none", @style = "background-color: #E5EDFA", @placeholder = "Enter your username" } })
+                        @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger mt-1 d-block" })
+                    </div>
+                </div>
+
+                @* Password *@
+                <div class="w-100">
+                    <div class="d-flex">
+                        @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "form-label mb-1 fw-semibold", @style = "letter-spacing: 0.3px" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control shadow-none", @style = "background-color: #E5EDFA", @placeholder = "Enter your password" } })
+                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger mt-1 d-block" })
+                    </div>
+                </div>
+
+                @* Confirm Password *@
+                <div class="w-100">
+                    <div class="d-flex">
+                        @Html.LabelFor(model => model.confirm_password, htmlAttributes: new { @class = "form-label mb-1 fw-semibold", @style = "letter-spacing: 0.3px" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.confirm_password, new { htmlAttributes = new { @class = "form-control shadow-none", @style = "background-color: #E5EDFA", @placeholder = "Confirm Password" } })
+                        @Html.ValidationMessageFor(model => model.confirm_password, "", new { @class = "text-danger mt-1 d-block" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 pe-2">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.phone_number, htmlAttributes: new { @class = "form-label mb-1 fw-semibold", @style = "letter-spacing: 0.3px" })
+                    <span class="text-danger">*</span>
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.phone_number, new { htmlAttributes = new { @class = "form-control shadow-none phoneValidation", @style = "background-color: #E5EDFA", @placeholder = "Enter your phone number" } })
+                    @Html.ValidationMessageFor(model => model.phone_number, "", new { @class = "text-danger mt-1 d-block lengthError" })
+                </div>
+            </div>
+
+            <div class="form-group mt-5">
+                <div>
+                    <input type="submit" id="btnSubmit" value="Create Account" class="btn btn-light fw-semibold" style="width: 150px; " />
+                </div>
+            </div>
+
+            <div class="form-group mt-5">
+                <div class="col-md-offset-2">
+                    <label class="text-danger font-weight-bold">@ViewBag.Notification</label>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @*<script>
+
+            const btnSubmitEl = document.querySelector("#btnSubmit");
+
+            btnSubmitEl.addEventListener("click", () => {
+                const phoneValidationEl = document.querySelector(".phoneValidation");
+
+                if (phoneValidationEl.length < 3) {
+
+                    const lengthErrorEl = document.querySelector(".lengthError");
+
+                    lengthErrorEl.classList.add("visible");
+                    lengthErrorEl.textContent = "Phone number must be 10 digits.";
+
+                }
+
+            })
+
+        </script>*@
+}

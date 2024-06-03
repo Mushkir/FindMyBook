@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://img.freepik.com/free-vector/gradient-bookstore-logo_23-2149332417.jpg" rel="icon" type="image/x-icon" />
+    <title>@ViewBag.Title | Find-My-Book</title>
+
+    @* Font Awesome CDN *@
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark main-background-color py-4">
+        <div class="container d-flex justify-content-between align-items-center">
+            @Html.ActionLink("Find My Book", "Index", "Home", new { area = "" }, new { @class = "navbar-brand fs-3 font-weight-bold" })
+            
+            <ul class="navbar-nav">
+                <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+            </ul>
+
+            <div class="d-flex gap-3">
+
+
+                @if (Session["CustomerName"] != null)
+                {
+                    var username = Session["CustomerName"];
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <li>
+                                @Html.ActionLink($"Hello {username}", "Index", "Customer", new { area = "" }, new { @class = "text-white py-2 px-5 mt-3 text-decoration-none", title = "Go to Profile" })
+                            </li>
+
+                            @*<p class="text-white py-2 px-5 mt-3">Hello @username </p>*@
+                        </div>
+                        @Html.ActionLink("Logout", "Logout", "Home", new { area = "" }, new { @class = "btn border-2 text-light border-light font-weight-bold rounded-5 px-4 py-2" })
+                    </div>
+
+                }
+                else
+                {
+                    @Html.ActionLink("Sign-Up", "SignUp", "Home", new { area = "" }, new { @class = "btn btn-light font-weight-bold rounded-5 px-4 py-2" })
+                    @Html.ActionLink("Login", "Login", "Home", new { area = "" }, new { @class = "btn border-2 text-light border-light font-weight-bold rounded-5 px-4 py-2" })
+                }
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid body-content">
+        @RenderBody()
+    </div>
+    <div class="container-fluid mt-auto">
+        <footer class="p-3 d-flex justify-content-center align-items-center" style="background-color: #0E223B;">
+            <p class="text-center fs-5 text-white font-weight-bold">&copy; @DateTime.Now.Year - Find-My-Book</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

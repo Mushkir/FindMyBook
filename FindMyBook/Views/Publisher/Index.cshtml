@@ -1,0 +1,83 @@
+﻿@model IEnumerable<FindMyBook.Models.table_publisher>
+
+@{
+    ViewBag.Title = "All publishers section";
+    Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+}
+
+<div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+    <h2 class="font-weight-bold" style="color: #0E223B">List of entire publishers' detail</h2>
+
+    <div class="px-4 py-2 text-light rounded-3" style="background-color: #0E223B">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4s-4 1.79-4 4s1.79 4 4 4m-9-2V7H4v3H1v2h3v3h2v-3h3v-2zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4" /></svg>
+        @Html.ActionLink("Add new publisher", "Create", "Publisher", htmlAttributes: new { @class = "text-decoration-none text-light" })
+    </div>
+</div>
+<table class="table table-striped table-hover table-bordered mb-4" style="border-color: #0E223B" id="authorsTable">
+    <tr style="background-color: #0E223B">
+        <th class="text-center text-light">
+            S.No
+        </th>
+        <th class="text-center text-light">
+            @Html.DisplayNameFor(model => model.publisher_id)
+        </th>
+        <th class="text-center text-light">
+            @Html.DisplayNameFor(model => model.publisher_name)
+        </th>
+        <th class="text-center text-light">
+            @Html.DisplayNameFor(model => model.address)
+        </th>
+        <th class="text-center text-light">
+            @Html.DisplayNameFor(model => model.country)
+        </th>
+        <th class="text-center text-light">
+            @Html.DisplayNameFor(model => model.publisher_phone_number)
+        </th>
+        <th class="text-center text-light">
+            @Html.DisplayNameFor(model => model.publisher_email)
+        </th>
+        <th class="text-center text-light">
+            Actions
+        </th>
+    </tr>
+
+    @{ 
+
+        int serialNumber = 0;
+    }
+
+@foreach (var item in Model) {
+    <tr>
+        <td class="text-center">
+            @{ 
+                serialNumber++;
+            }
+            #@serialNumber
+        </td>
+        <td class="text-center">
+            @Html.DisplayFor(modelItem => item.publisher_id)
+        </td>
+        <td class="text-center">
+            @Html.DisplayFor(modelItem => item.publisher_name)
+        </td>
+        <td class="text-center">
+            @Html.DisplayFor(modelItem => item.address)
+        </td>
+        <td class="text-center">
+            @Html.DisplayFor(modelItem => item.country)
+        </td>
+        <td class="text-center">
+            @Html.DisplayFor(modelItem => item.publisher_phone_number)
+        </td>
+        <td class="text-center">
+            @Html.DisplayFor(modelItem => item.publisher_email)
+        </td>
+        <td class="text-center">
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

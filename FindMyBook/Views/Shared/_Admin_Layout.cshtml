@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://img.freepik.com/free-vector/gradient-bookstore-logo_23-2149332417.jpg" rel="icon" type="image/x-icon" />
+    <title>@ViewBag.Title | Find-My-Book</title>
+
+    @* Font Awesome CDN *@
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body class="d-flex flex-column min-vh-100" style="background-color: #E5EDFA;">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark main-background-color py-4">
+        <div class="container d-flex justify-content-between align-items-center">
+            @Html.ActionLink("Find My Book", "Index", "Home", new { area = "" }, new { @class = "navbar-brand fs-3 font-weight-bold" })
+            
+            <h3 class="fs-4 font-weight-bold text-light"> <i class="fa-solid fa-user-tie"></i> Admin Panel</h3>
+
+            <div class="d-flex gap-3">
+                @Html.ActionLink("Login", "Login", "Admin", new { area = "" }, new { @class = "btn btn-light font-weight-bold rounded-5 px-4 py-2" })
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid body-content">
+        @RenderBody()
+    </div>
+    <div class="container-fluid mt-auto">
+        <footer class="p-3 d-flex justify-content-center align-items-center" style="background-color: #0E223B;">
+            <p class="text-center fs-5 text-white font-weight-bold">&copy; @DateTime.Now.Year | Admin - Panel | Find-My-Book</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

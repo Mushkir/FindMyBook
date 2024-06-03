@@ -1,0 +1,68 @@
+﻿/* Google Font */
+@font-face {
+    font-family: 'ptsans-regular';
+    src: url('../fonts/ptsans-regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'ptsans-italic';
+    src: url('../fonts/ptsans-italic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'ptsans-bold';
+    src: url('../fonts/ptsans-bold.ttf') format('truetype');
+}
+
+
+@font-face {
+    font-family: 'ptsans-bolditalic';
+    src: url('../fonts/ptsans-bolditalic.ttf') format('truetype');
+}
+/* End of Font CSS */
+
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+body {
+    font-family: ptsans-regular;
+}
+
+.font-weight-bold {
+    font-family: ptsans-bold !important;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    width: 280px;
+}
+
+.object-fit-cover {
+    object-fit: cover;
+}
+
+.font-main-color {
+    color: #1a4671;
+}
+
+.main-background-color {
+    background-color: #0E223B;
+}
+
+.button-color {
+    background-color: #0E223B !important;
+}

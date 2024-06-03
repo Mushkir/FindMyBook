@@ -1,0 +1,118 @@
+﻿@model FindMyBook.Models.table_author
+
+@{
+    ViewBag.Title = "Edit author page";
+    Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+}
+
+<div class="container-fluid p-5 rounded-3 text-light" style="max-width: 800px; background-color: #0E223B; margin-bottom: 200px; margin-top: 80px">
+    @using (Html.BeginForm("EditAuthor", "Author", FormMethod.Post, new { @id = "editAuthorForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+
+            <div class="mt-1">
+                <h2 class="fw-semibold text-center" style="color: #E5EDFA">Edit authors detail </h2>
+                <small class="text-center d-block">Dear Admin! Here you can explore @ViewBag.AuthorName author's details.</small>
+            </div>
+
+            <hr />
+            @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.author_id, htmlAttributes: new { @class = "form-label mb-1" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.author_id, new { htmlAttributes = new { @class = "form-control hidden" } })
+                        @Html.ValidationMessageFor(model => model.author_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(model => model.author_name, htmlAttributes: new { @class = "form-label mb-1" })
+                <div>
+                    @Html.EditorFor(model => model.author_name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.author_name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(model => model.author_education, htmlAttributes: new { @class = "form-label mb-1" })
+                <div>
+                    @Html.EditorFor(model => model.author_education, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.author_education, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(model => model.author_country, htmlAttributes: new { @class = "form-label mb-1" })
+                <div>
+                    @Html.EditorFor(model => model.author_country, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.author_country, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                @Html.LabelFor(model => model.number_of_published_books, htmlAttributes: new { @class = "form-label mb-1" })
+                <div>
+                    @Html.EditorFor(model => model.number_of_published_books, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.number_of_published_books, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group mt-4">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Update" class="btn btn-light fw-semibold" style="width: 200px" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+
+            $(document).on("submit", "#editAuthorForm", function (e) {
+
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                const formData = $(this).serialize();
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Author/EditAuthor',
+                    data: formData,
+                    dataType: "json",
+                    success: function (response) {
+                        //console.log(response);
+
+                        const { status, message } = response;
+                        if (status == "200") {
+                            Swal.fire({
+                                title: "Successfully updated!",
+                                text: `Dear Admin! ${message}`,
+                                icon: "success"
+                            }).then((result) => {
+
+                                if (result.isConfirmed == true) {
+                                    window.location.href = '/Author/ManageAuthors';
+                                }  
+                            });
+                        }
+
+                    }, error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                })
+            })
+
+        })
+    </script>
+}

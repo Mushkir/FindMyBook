@@ -1,0 +1,142 @@
+﻿@model IEnumerable<FindMyBook.Models.table_author>
+
+@{
+    if (Session["AdminName"] != null)
+    {
+        ViewBag.AdminName = $"{Session["AdminName"]}";
+        ViewBag.Title = "Authors List";
+        Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+
+    }
+    else
+    {
+        ViewBag.Title = "Authors List";
+        Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+    }
+}
+
+<div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+    <h2 class="font-weight-bold" style="color: #0E223B">List of entire authors' detail</h2>
+
+    <div class="px-4 py-2 text-light rounded-3" style="background-color: #0E223B">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4s-4 1.79-4 4s1.79 4 4 4m-9-2V7H4v3H1v2h3v3h2v-3h3v-2zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4" /></svg>
+        @Html.ActionLink("Add New Author", "AddAuthor", "Author", htmlAttributes: new { @class = "text-decoration-none text-light" })
+    </div>
+</div>
+<table class="table table-striped table-hover table-bordered mb-4" style="border-color: #0E223B" id="authorsTable">
+    <tr style="background-color: #0E223B">
+        <th class="text-center text-light">
+            <label>S.No</label>
+        </th>
+        <th class="text-center text-light">
+            @Html.DisplayNameFor(model => model.author_id)
+        </th>
+        <th class="text-center text-light">
+            @Html.DisplayNameFor(model => model.author_name)
+        </th>
+        <th class="text-center text-light">
+            @Html.DisplayNameFor(model => model.author_education)
+        </th>
+        <th class="text-center text-light">
+            @Html.DisplayNameFor(model => model.author_country)
+        </th>
+        <th class="text-center text-light">
+            @Html.DisplayNameFor(model => model.number_of_published_books)
+        </th>
+        <th class="text-center text-light">
+            Actions
+        </th>
+    </tr>
+
+    @{
+
+        var serialNumber = 0;
+    }
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="text-center">
+                @{
+                    serialNumber++;
+                }
+                #@serialNumber
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.author_id)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.author_name)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.author_education)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.author_country)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.number_of_published_books)
+            </td>
+            <td class="text-center">
+                @Html.ActionLink("Edit", "EditAuthor", new { id = item.author_id }, new { @id = "editAuthorBtn" }) |
+                @Html.ActionLink("Details", "AuthorDetails", new { id = item.author_id }) |
+                @Html.ActionLink("Delete", "DeleteAuthor", new { id = item.author_id }, new { @id = "deleteAuthorBtn" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+
+            // Edit Process
+            $("body").on("click", "#editAuthorBtn", function (e) {
+
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                const editAuthorBtnEl = document.querySelector("#editAuthorBtn");
+
+                const hrefContent = $(this).attr("href");
+                const arrayOfHrefContent = hrefContent.split("/Author/EditAuthor/")
+                const Id = arrayOfHrefContent[1];
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success ms-4",
+                        cancelButton: "btn btn-danger"
+                    },
+                    buttonsStyling: false
+                });
+                swalWithBootstrapButtons.fire({
+                    title: "Are you sure?",
+                    text: "Dear Admin! Are you sure to edit this record?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes!",
+                    cancelButtonText: "No, cancel!",
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        document.location.href = `/Author/EditAuthor/${Id}`;
+                    } else if (
+                       
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons.fire({
+                            title: "Cancelled",
+                            icon: "error"
+                        });
+                    }
+                });
+
+            })
+        })
+    </script>
+}
+

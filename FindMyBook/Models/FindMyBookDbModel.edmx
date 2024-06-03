@@ -1,0 +1,498 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="findMyBookModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="table_admin">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="first_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="last_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone_number" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="12" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_author">
+          <Key>
+            <PropertyRef Name="author_id" />
+          </Key>
+          <Property Name="author_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="author_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="author_education" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="author_country" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="number_of_published_books" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_book_detail">
+          <Key>
+            <PropertyRef Name="book_id" />
+          </Key>
+          <Property Name="book_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="book_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="book_isbn_number" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="book_price" Type="float" Nullable="false" />
+          <Property Name="book_published_date" Type="datetime" Nullable="false" />
+          <Property Name="book_language" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="pages" Type="int" Nullable="false" />
+          <Property Name="rating" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="author_id_FK" Type="int" Nullable="false" />
+          <Property Name="publisher_id_FK" Type="int" Nullable="false" />
+          <Property Name="book_status_id_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_book_status">
+          <Key>
+            <PropertyRef Name="book_status_id" />
+          </Key>
+          <Property Name="book_status_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="book_status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="table_customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customer_first_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_last_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_password" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="account_creation_date" Type="datetime" Nullable="false" />
+          <Property Name="customer_phone_number" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="customer_image" Type="varchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="table_customer_book_order_details">
+          <Key>
+            <PropertyRef Name="customer_book_order_detail_id" />
+          </Key>
+          <Property Name="customer_book_order_detail_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="book_id_FK" Type="int" />
+          <Property Name="book_price" Type="float" />
+          <Property Name="book_qty" Type="int" />
+          <Property Name="discount" Type="varchar" MaxLength="50" />
+          <Property Name="order_id_FK" Type="int" />
+          <Property Name="total_price" Type="float" />
+        </EntityType>
+        <EntityType Name="table_customer_order_book">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="order_date" Type="datetime" Nullable="false" />
+          <Property Name="delivery_date" Type="datetime" Nullable="false" />
+          <Property Name="customer_id_FK" Type="int" Nullable="false" />
+          <Property Name="total_price" Type="float" Nullable="false" />
+          <Property Name="order_status_id_FK" Type="int" Nullable="false" />
+          <Property Name="feedback_id_FK" Type="int" Nullable="false" />
+          <Property Name="payment_id_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_feedback">
+          <Key>
+            <PropertyRef Name="feedback_id" />
+          </Key>
+          <Property Name="feedback_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="feedback" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="customer_id_FK" Type="int" Nullable="false" />
+          <Property Name="book_id_FK" Type="int" Nullable="false" />
+          <Property Name="order_id_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_orderStatus">
+          <Key>
+            <PropertyRef Name="order_status_id" />
+          </Key>
+          <Property Name="order_status_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="order_status" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_payment">
+          <Key>
+            <PropertyRef Name="payment_method_id" />
+          </Key>
+          <Property Name="payment_method_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="payment_method" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_payment_status">
+          <Key>
+            <PropertyRef Name="payment_status_id" />
+          </Key>
+          <Property Name="payment_status_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="payment_status" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_publisher">
+          <Key>
+            <PropertyRef Name="publisher_id" />
+          </Key>
+          <Property Name="publisher_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="publisher_name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="country" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="publisher_phone_number" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="publisher_email" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tablePayment">
+          <Key>
+            <PropertyRef Name="payment_id" />
+          </Key>
+          <Property Name="payment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="order_id_FK" Type="int" Nullable="false" />
+          <Property Name="payment_amount" Type="float" Nullable="false" />
+          <Property Name="payment_method_id_FK" Type="int" Nullable="false" />
+          <Property Name="payment_date" Type="datetime" Nullable="false" />
+          <Property Name="payment_status_id_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="findMyBookModelStoreContainer">
+          <EntitySet Name="table_admin" EntityType="Self.table_admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_author" EntityType="Self.table_author" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_book_detail" EntityType="Self.table_book_detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_book_status" EntityType="Self.table_book_status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_customer" EntityType="Self.table_customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_customer_book_order_details" EntityType="Self.table_customer_book_order_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_customer_order_book" EntityType="Self.table_customer_order_book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_feedback" EntityType="Self.table_feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_orderStatus" EntityType="Self.table_orderStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_payment" EntityType="Self.table_payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_payment_status" EntityType="Self.table_payment_status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_publisher" EntityType="Self.table_publisher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tablePayment" EntityType="Self.tablePayment" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="findMyBookModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="table_admin">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone_number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_author">
+          <Key>
+            <PropertyRef Name="author_id" />
+          </Key>
+          <Property Name="author_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="author_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="author_education" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="author_country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="number_of_published_books" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_book_detail">
+          <Key>
+            <PropertyRef Name="book_id" />
+          </Key>
+          <Property Name="book_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="book_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="book_isbn_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="book_price" Type="Double" Nullable="false" />
+          <Property Name="book_published_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="book_language" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pages" Type="Int32" Nullable="false" />
+          <Property Name="rating" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="author_id_FK" Type="Int32" Nullable="false" />
+          <Property Name="publisher_id_FK" Type="Int32" Nullable="false" />
+          <Property Name="book_status_id_FK" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_book_status">
+          <Key>
+            <PropertyRef Name="book_status_id" />
+          </Key>
+          <Property Name="book_status_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="book_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="table_customer">
+          <Key>
+            <PropertyRef Name="customer_id" />
+          </Key>
+          <Property Name="customer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="customer_last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="customer_address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="customer_username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="customer_password" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="account_creation_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="customer_phone_number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="customer_image" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="table_customer_book_order_details">
+          <Key>
+            <PropertyRef Name="customer_book_order_detail_id" />
+          </Key>
+          <Property Name="customer_book_order_detail_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="book_id_FK" Type="Int32" />
+          <Property Name="book_price" Type="Double" />
+          <Property Name="book_qty" Type="Int32" />
+          <Property Name="discount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="order_id_FK" Type="Int32" />
+          <Property Name="total_price" Type="Double" />
+        </EntityType>
+        <EntityType Name="table_customer_order_book">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="order_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="delivery_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="customer_id_FK" Type="Int32" Nullable="false" />
+          <Property Name="total_price" Type="Double" Nullable="false" />
+          <Property Name="order_status_id_FK" Type="Int32" Nullable="false" />
+          <Property Name="feedback_id_FK" Type="Int32" Nullable="false" />
+          <Property Name="payment_id_FK" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_feedback">
+          <Key>
+            <PropertyRef Name="feedback_id" />
+          </Key>
+          <Property Name="feedback_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="feedback" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="customer_id_FK" Type="Int32" Nullable="false" />
+          <Property Name="book_id_FK" Type="Int32" Nullable="false" />
+          <Property Name="order_id_FK" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_orderStatus">
+          <Key>
+            <PropertyRef Name="order_status_id" />
+          </Key>
+          <Property Name="order_status_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="order_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_payment">
+          <Key>
+            <PropertyRef Name="payment_method_id" />
+          </Key>
+          <Property Name="payment_method_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="payment_method" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_payment_status">
+          <Key>
+            <PropertyRef Name="payment_status_id" />
+          </Key>
+          <Property Name="payment_status_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="payment_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="table_publisher">
+          <Key>
+            <PropertyRef Name="publisher_id" />
+          </Key>
+          <Property Name="publisher_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="publisher_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="publisher_phone_number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="publisher_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tablePayment">
+          <Key>
+            <PropertyRef Name="payment_id" />
+          </Key>
+          <Property Name="payment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="order_id_FK" Type="Int32" Nullable="false" />
+          <Property Name="payment_amount" Type="Double" Nullable="false" />
+          <Property Name="payment_method_id_FK" Type="Int32" Nullable="false" />
+          <Property Name="payment_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="payment_status_id_FK" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="findMyBookEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="table_admin" EntityType="Self.table_admin" />
+          <EntitySet Name="table_author" EntityType="Self.table_author" />
+          <EntitySet Name="table_book_detail" EntityType="Self.table_book_detail" />
+          <EntitySet Name="table_book_status" EntityType="Self.table_book_status" />
+          <EntitySet Name="table_customer" EntityType="Self.table_customer" />
+          <EntitySet Name="table_customer_book_order_details" EntityType="Self.table_customer_book_order_details" />
+          <EntitySet Name="table_customer_order_book" EntityType="Self.table_customer_order_book" />
+          <EntitySet Name="table_feedback" EntityType="Self.table_feedback" />
+          <EntitySet Name="table_orderStatus" EntityType="Self.table_orderStatus" />
+          <EntitySet Name="table_payment" EntityType="Self.table_payment" />
+          <EntitySet Name="table_payment_status" EntityType="Self.table_payment_status" />
+          <EntitySet Name="table_publisher" EntityType="Self.table_publisher" />
+          <EntitySet Name="tablePayments" EntityType="Self.tablePayment" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="findMyBookModelStoreContainer" CdmEntityContainer="findMyBookEntities1">
+          <EntitySetMapping Name="table_admin">
+            <EntityTypeMapping TypeName="findMyBookModel.table_admin">
+              <MappingFragment StoreEntitySet="table_admin">
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_author">
+            <EntityTypeMapping TypeName="findMyBookModel.table_author">
+              <MappingFragment StoreEntitySet="table_author">
+                <ScalarProperty Name="author_id" ColumnName="author_id" />
+                <ScalarProperty Name="author_name" ColumnName="author_name" />
+                <ScalarProperty Name="author_education" ColumnName="author_education" />
+                <ScalarProperty Name="author_country" ColumnName="author_country" />
+                <ScalarProperty Name="number_of_published_books" ColumnName="number_of_published_books" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_book_detail">
+            <EntityTypeMapping TypeName="findMyBookModel.table_book_detail">
+              <MappingFragment StoreEntitySet="table_book_detail">
+                <ScalarProperty Name="book_id" ColumnName="book_id" />
+                <ScalarProperty Name="book_name" ColumnName="book_name" />
+                <ScalarProperty Name="book_isbn_number" ColumnName="book_isbn_number" />
+                <ScalarProperty Name="book_price" ColumnName="book_price" />
+                <ScalarProperty Name="book_published_date" ColumnName="book_published_date" />
+                <ScalarProperty Name="book_language" ColumnName="book_language" />
+                <ScalarProperty Name="pages" ColumnName="pages" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="author_id_FK" ColumnName="author_id_FK" />
+                <ScalarProperty Name="publisher_id_FK" ColumnName="publisher_id_FK" />
+                <ScalarProperty Name="book_status_id_FK" ColumnName="book_status_id_FK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_book_status">
+            <EntityTypeMapping TypeName="findMyBookModel.table_book_status">
+              <MappingFragment StoreEntitySet="table_book_status">
+                <ScalarProperty Name="book_status_id" ColumnName="book_status_id" />
+                <ScalarProperty Name="book_status" ColumnName="book_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_customer">
+            <EntityTypeMapping TypeName="findMyBookModel.table_customer">
+              <MappingFragment StoreEntitySet="table_customer">
+                <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+                <ScalarProperty Name="customer_first_name" ColumnName="customer_first_name" />
+                <ScalarProperty Name="customer_last_name" ColumnName="customer_last_name" />
+                <ScalarProperty Name="customer_address" ColumnName="customer_address" />
+                <ScalarProperty Name="customer_username" ColumnName="customer_username" />
+                <ScalarProperty Name="customer_password" ColumnName="customer_password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="account_creation_date" ColumnName="account_creation_date" />
+                <ScalarProperty Name="customer_phone_number" ColumnName="customer_phone_number" />
+                <ScalarProperty Name="customer_image" ColumnName="customer_image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_customer_book_order_details">
+            <EntityTypeMapping TypeName="findMyBookModel.table_customer_book_order_details">
+              <MappingFragment StoreEntitySet="table_customer_book_order_details">
+                <ScalarProperty Name="customer_book_order_detail_id" ColumnName="customer_book_order_detail_id" />
+                <ScalarProperty Name="book_id_FK" ColumnName="book_id_FK" />
+                <ScalarProperty Name="book_price" ColumnName="book_price" />
+                <ScalarProperty Name="book_qty" ColumnName="book_qty" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="order_id_FK" ColumnName="order_id_FK" />
+                <ScalarProperty Name="total_price" ColumnName="total_price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_customer_order_book">
+            <EntityTypeMapping TypeName="findMyBookModel.table_customer_order_book">
+              <MappingFragment StoreEntitySet="table_customer_order_book">
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="order_date" ColumnName="order_date" />
+                <ScalarProperty Name="delivery_date" ColumnName="delivery_date" />
+                <ScalarProperty Name="customer_id_FK" ColumnName="customer_id_FK" />
+                <ScalarProperty Name="total_price" ColumnName="total_price" />
+                <ScalarProperty Name="order_status_id_FK" ColumnName="order_status_id_FK" />
+                <ScalarProperty Name="feedback_id_FK" ColumnName="feedback_id_FK" />
+                <ScalarProperty Name="payment_id_FK" ColumnName="payment_id_FK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_feedback">
+            <EntityTypeMapping TypeName="findMyBookModel.table_feedback">
+              <MappingFragment StoreEntitySet="table_feedback">
+                <ScalarProperty Name="feedback_id" ColumnName="feedback_id" />
+                <ScalarProperty Name="feedback" ColumnName="feedback" />
+                <ScalarProperty Name="customer_id_FK" ColumnName="customer_id_FK" />
+                <ScalarProperty Name="book_id_FK" ColumnName="book_id_FK" />
+                <ScalarProperty Name="order_id_FK" ColumnName="order_id_FK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_orderStatus">
+            <EntityTypeMapping TypeName="findMyBookModel.table_orderStatus">
+              <MappingFragment StoreEntitySet="table_orderStatus">
+                <ScalarProperty Name="order_status_id" ColumnName="order_status_id" />
+                <ScalarProperty Name="order_status" ColumnName="order_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_payment">
+            <EntityTypeMapping TypeName="findMyBookModel.table_payment">
+              <MappingFragment StoreEntitySet="table_payment">
+                <ScalarProperty Name="payment_method_id" ColumnName="payment_method_id" />
+                <ScalarProperty Name="payment_method" ColumnName="payment_method" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_payment_status">
+            <EntityTypeMapping TypeName="findMyBookModel.table_payment_status">
+              <MappingFragment StoreEntitySet="table_payment_status">
+                <ScalarProperty Name="payment_status_id" ColumnName="payment_status_id" />
+                <ScalarProperty Name="payment_status" ColumnName="payment_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_publisher">
+            <EntityTypeMapping TypeName="findMyBookModel.table_publisher">
+              <MappingFragment StoreEntitySet="table_publisher">
+                <ScalarProperty Name="publisher_id" ColumnName="publisher_id" />
+                <ScalarProperty Name="publisher_name" ColumnName="publisher_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="publisher_phone_number" ColumnName="publisher_phone_number" />
+                <ScalarProperty Name="publisher_email" ColumnName="publisher_email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tablePayments">
+            <EntityTypeMapping TypeName="findMyBookModel.tablePayment">
+              <MappingFragment StoreEntitySet="tablePayment">
+                <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+                <ScalarProperty Name="order_id_FK" ColumnName="order_id_FK" />
+                <ScalarProperty Name="payment_amount" ColumnName="payment_amount" />
+                <ScalarProperty Name="payment_method_id_FK" ColumnName="payment_method_id_FK" />
+                <ScalarProperty Name="payment_date" ColumnName="payment_date" />
+                <ScalarProperty Name="payment_status_id_FK" ColumnName="payment_status_id_FK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
