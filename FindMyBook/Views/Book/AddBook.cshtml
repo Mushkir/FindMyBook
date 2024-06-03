@@ -1,8 +1,150 @@
-﻿
+﻿@model FindMyBook.Models.table_book_detail
+
 @{
-    ViewBag.Title = "AddBook";
+    ViewBag.Title = "Add Book Detail";
     Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
 }
 
-<h2>AddBook</h2>
+<div class="container-fluid p-5 rounded-3 text-light" style="max-width: 1100px; background-color: #0E223B; margin-bottom: 200px; margin-top: 80px">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
+    <div class="form-horizontal">
+        <h4>Books detail adding page</h4>
+        <hr />
+
+        @* Book name *@
+        <div class="form-group mb-3 d-flex align-items-center gap-4">
+            <div class="w-100">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.book_name, htmlAttributes: new { @class = "form-label mb-1" })
+                    <span class="text-danger">*</span>
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.book_name, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the book name" } })
+                    @Html.ValidationMessageFor(model => model.book_name, "", new { @class = "text-danger d-block mt-1" })
+                </div>
+            </div>
+
+            @* ISBN number *@
+            <div class="w-100">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.book_isbn_number, htmlAttributes: new { @class = "form-label mb-1" })
+                    <span class="text-danger">*</span>
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.book_isbn_number, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the ISBN number" } })
+                    @Html.ValidationMessageFor(model => model.book_isbn_number, "", new { @class = "text-danger d-block mt-1" })
+                </div>
+            </div>
+
+            @* Price *@
+            <div class="w-100">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.book_price, htmlAttributes: new { @class = "form-label mb-1" })
+                    <span class="text-danger">*</span>
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.book_price, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the book price" } })
+                    @Html.ValidationMessageFor(model => model.book_price, "", new { @class = "text-danger d-block mt-1" })
+                </div>
+            </div>
+        </div>
+
+        @* Author list *@
+        <div class="form-group mb-3 d-flex align-items-center gap-4">
+            <div class="w-100">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.author_id_FK, "Author", htmlAttributes: new { @class = "form-label mb-1" })
+                    <span class="text-danger">*</span>
+                </div>
+                @Html.DropDownList("author_id_FK", ViewBag.Authors as SelectList, "Select Author", htmlAttributes: new { @class = "form-select shadow-none" })
+                @Html.ValidationMessageFor(model => model.author_id_FK, "", new { @class = "text-danger d-block mt-1" })
+            </div>
+
+            @* Publisher list *@
+            <div class="w-100">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.publisher_id_FK, "Publisher", htmlAttributes: new { @class = "form-label mb-1" });
+                    <span class="text-danger">*</span>
+                </div>
+                @Html.DropDownList("publisher_id_FK", ViewBag.Publishers as SelectList, "Select Publisher", htmlAttributes: new { @class = "form-select shadow-none" })
+                @Html.ValidationMessageFor(model => model.publisher_id_FK, "", new { @class = "text-danger d-block mt-1" })
+            </div>
+
+            @* Book status *@
+            <div class="w-100">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.book_status_id_FK, "Book status", htmlAttributes: new { @class = "form-label mb-1" })
+                    <span class="text-danger">*</span>
+                </div>
+                @Html.DropDownList("book_status_id_FK", ViewBag.BookStatus as SelectList, "Select book status", htmlAttributes: new { @class = "form-select shadow-none" })
+                @Html.ValidationMessageFor(model => model.book_status_id_FK, "", new { @class = "text-danger d-block, mt-1" })
+
+            </div>
+        </div>
+
+        @* Published date *@
+        <div class="form-group mb-3 d-flex align-items-center gap-4">
+            <div class="w-100">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.book_published_date, htmlAttributes: new { @class = "form-label mb-1" })
+                    <span class="text-danger">*</span>
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.book_published_date, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the published date" } })
+                    @Html.ValidationMessageFor(model => model.book_published_date, "", new { @class = "text-danger d-block mt-1" })
+                </div>
+            </div>
+
+            @* Book language *@
+            <div class="w-100">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.book_language, htmlAttributes: new { @class = "form-label mb-1" })
+                    <span class="text-danger">*</span>
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.book_language, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the book language" } })
+                    @Html.ValidationMessageFor(model => model.book_language, "", new { @class = "text-danger d-block mt-1" })
+                </div>
+            </div>
+
+            @* Number of pages *@
+            <div class="w-100">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.pages, htmlAttributes: new { @class = "form-label mb-1" })
+                    <span class="text-danger">*</span>
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.pages, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the number of pages" } })
+                    @Html.ValidationMessageFor(model => model.pages, "", new { @class = "text-danger d-block mt-1" })
+                </div>
+            </div>
+
+            @* Ratings *@
+            <div class="w-100">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.rating, htmlAttributes: new { @class = "form-label mb-1" })
+                    <span class="text-danger">*</span>
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.rating, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the ratings of the book" } })
+                    @Html.ValidationMessageFor(model => model.rating, "", new { @class = "text-danger d-block mt-1" })
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group mt-4">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add book detail" class="btn btn-light w-25" />
+            </div>
+        </div>
+    </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

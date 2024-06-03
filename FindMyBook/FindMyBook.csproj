@@ -277,7 +277,6 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_Admin_Dashboard_Layout.cshtml" />
     <Content Include="Views\Admin\Dashboard.cshtml" />
-    <Content Include="Views\Book\AddBook.cshtml" />
     <Content Include="Views\Admin\AddCustomer.cshtml" />
     <Content Include="Views\Author\AddAuthor.cshtml" />
     <Content Include="Views\Author\ManageAuthors.cshtml" />
@@ -287,6 +286,7 @@
     <Content Include="Views\Publisher\Create.cshtml" />
     <Content Include="Views\Publisher\Index.cshtml" />
     <Content Include="Views\BookStatus\Create.cshtml" />
+    <Content Include="Views\Book\AddBook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

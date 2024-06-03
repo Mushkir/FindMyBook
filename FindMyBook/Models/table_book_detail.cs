@@ -11,19 +11,47 @@ namespace FindMyBook.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class table_book_detail
     {
         public int book_id { get; set; }
+
+        [Required(ErrorMessage = "Book name field cannot be empty.")]
+        [Display(Name = "Book name")]
         public string book_name { get; set; }
+
+        [Required(ErrorMessage = "ISBN number field cannot be empty.")]
+        [Display(Name = "ISBN Number")]
         public string book_isbn_number { get; set; }
+
+        [Required(ErrorMessage = "Price field cannot be empty.")]
+        [Display(Name = "Price")]
         public double book_price { get; set; }
+
+        [Required(ErrorMessage = "Published date field cannot be empty.")]
+        [Display(Name = "Published date")]
         public System.DateTime book_published_date { get; set; }
+
+        [Required(ErrorMessage = "Book language field cannot be empty.")]
+        [Display(Name = "Book Language")]
         public string book_language { get; set; }
+
+        [Required(ErrorMessage = "Book pages field cannot be empty.")]
+        [Display(Name = "Number of pages")]
         public int pages { get; set; }
+
+        [Required(ErrorMessage = "Rating field cannot be empty.")]
+        [Display(Name = "Ratings")]
         public string rating { get; set; }
+
+        [Required(ErrorMessage = "Author name field cannot be empty.")]
         public int author_id_FK { get; set; }
+
+        [Required(ErrorMessage = "Publisher name field cannot be empty.")]
         public int publisher_id_FK { get; set; }
+
+        [Required(ErrorMessage = "Status field cannot be empty.")]
         public int book_status_id_FK { get; set; }
     }
 }
