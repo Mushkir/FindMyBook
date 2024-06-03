@@ -1,0 +1,96 @@
+﻿@model FindMyBook.Models.table_book_status
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+}
+
+
+
+
+<div class="container-fluid p-5 rounded-3 text-light" style="max-width: 500px; background-color: #0E223B; margin-bottom: 200px; margin-top: 80px">
+    @using (Html.BeginForm("Create", "BookStatus", FormMethod.Post, new { @id = "bookStatusAddingForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h2 class="text-center">Book status adding form</h2>
+            <hr />
+
+            <div class="form-group">
+                <div class="d-flex">
+                    @Html.LabelFor(model => model.book_status, htmlAttributes: new { @class = "form-label mb-1" })
+                    <span class="text-danger">*</span>
+                </div>
+                <div>
+                    @Html.EditorFor(model => model.book_status, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter book status" } })
+                    @Html.ValidationMessageFor(model => model.book_status, "", new { @class = "text-danger d-block mt-1" })
+                </div>
+            </div>
+
+            <div class="form-group mt-4">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn font-weight-bold btn-light w-25" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+
+            $(document).on("submit", "#bookStatusAddingForm", function (e) {
+
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                const formData = $(this).serialize();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/BookStatus/Create',
+                    data: formData,
+                    dataType: 'json',
+                    success: function (response) {
+                        //console.log(response)
+
+                        const { status, message } = response;
+
+                        if (status == "200") {
+                            Swal.fire({
+                                title: "New status added!",
+                                text: `Dear Admin! ${message}`,
+                                icon: "success"
+                            }).then((result) => {
+
+                                if (result.isConfirmed == true) {
+                                    $("#bookStatusAddingForm")[0].reset();
+                                }
+                            });
+                        } else if (status == "409") {
+                            Swal.fire({
+                                title: "Status Exist!",
+                                text: `Dear Admin! ${message}`,
+                                icon: "info"
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Technical error!",
+                                text: `Dear Admin! Currently a technical error occured. Please contact your IT support.`,
+                                icon: "error"
+                            })
+                        }
+
+                    }, error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+
+                })
+            })
+        })
+    </script>
+}

@@ -129,6 +129,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\BookStatusController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PublisherController.cs" />
@@ -285,6 +286,7 @@
     <Content Include="Views\Author\DeleteAuthor.cshtml" />
     <Content Include="Views\Publisher\Create.cshtml" />
     <Content Include="Views\Publisher\Index.cshtml" />
+    <Content Include="Views\BookStatus\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
