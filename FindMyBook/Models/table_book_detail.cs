@@ -12,6 +12,8 @@ namespace FindMyBook.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Web;
 
     public partial class table_book_detail
     {
@@ -53,5 +55,11 @@ namespace FindMyBook.Models
 
         [Required(ErrorMessage = "Status field cannot be empty.")]
         public int book_status_id_FK { get; set; }
+
+        [Display(Name = "Book image")]
+        public string book_image { get; set; }
+
+        [NotMapped]
+        public HttpPostedFileBase BookImageFile { get; set; }
     }
 }

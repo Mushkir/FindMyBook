@@ -51,5 +51,6 @@ namespace FindMyBook.Models
         [Compare("password", ErrorMessage = "Password must be same.")]
         [NotMapped]
         public string confirm_password { get; set; }
+
     }
 }

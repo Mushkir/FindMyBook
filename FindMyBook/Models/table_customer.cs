@@ -61,7 +61,7 @@ namespace FindMyBook.Models
 
         [Display(Name = "Customer profile image")]
         public string customer_image { get; set; }
-
+        [NotMapped]
         public HttpPostedFileBase ImageFile { get; set; }
     }
 }

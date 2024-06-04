@@ -80,7 +80,7 @@
                                 <div>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M7.5 22q-1.475 0-2.488-1.012T4 18.5v-13q0-1.45 1.013-2.475T7.5 2H20v15q-.65 0-1.075.438T18.5 18.5q0 .65.425 1.075T20 20v2zm1.225-9H9.95l.625-1.775H13.4L14.025 13h1.225L12.6 6h-1.25zm2.2-2.8l1.025-2.9h.075l1.025 2.9zM7.5 20h9.325q-.15-.35-.237-.712T16.5 18.5q0-.4.075-.775t.25-.725H7.5q-.65 0-1.075.438T6 18.5q0 .65.425 1.075T7.5 20" /></svg>
                                 </div>
-                                @Html.ActionLink("Manage Books", "ManageBooks", "Book", new { area = "" }, new { @class = "nav-link text-light" })
+                                @Html.ActionLink("Manage Books", "Index", "Book", new { area = "" }, new { @class = "nav-link text-light" })
                             </li>
 
                             @* Book status *@
@@ -88,7 +88,7 @@
                                 <div>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M2 12c0 5.523 4.477 10 10 10s10-4.477 10-10S17.523 2 12 2S2 6.477 2 12m18 0a8 8 0 1 1-16 0a8 8 0 0 1 16 0m-8 6a6 6 0 1 0 0-12a6 6 0 0 0 0 12" /></svg>
                                 </div>
-                                @Html.ActionLink("Add Status", "Create", "BookStatus", new { area = "" }, new { @class = "nav-link text-light", @id = "add-book-status-menu-tag" })
+                                @Html.ActionLink("Add Status", "Create", "BookStatus", new { area = "" }, new { @class = "nav-link text-light", @id = "add-status-tag" })
                             </li>
                         </ul>
                     </li>
@@ -170,9 +170,109 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     @RenderSection("scripts", required: false)
+<script>
 
-    @* Admin dashboard active tab / menu script *@
-    <script src="~/Scripts/admin-dashboard.active-menu.script.js"></script>
+        @* Function for highlight active menu *@
+        function activeMenu(menuElementName, tagElementName) {
+            menuElementName.style.backgroundColor = "#E5EDFA"
+            menuElementName.classList.add("rounded-top");
+            menuElementName.classList.add("text-black")
+            tagElementName.classList.add("text-black", "fw-semibold")
+        }
+
+        @* Function for highligh dropdown menu active *@
+        function dropDownActiveMenu(menuHeaderElementName, mainMenuElementName, menuElementName, tagElementName) {
+            //@*
+            //        * menuHeaderElementName means heading of dropdown menu.It is inside an ANCHOR TAG(Ex: Books, Customers)
+            //    * mainMenuElementName means Main Menu list element id name.
+            //        * menuElementName means Sub - Element id name(Ex: Add books, Add customers).
+            //        * tagElementName means Sub - Element tag id name.
+            //    *@
+
+            mainMenuElementName.style.backgroundColor = "#E5EDFA"
+            mainMenuElementName.classList.add("rounded-top");
+            menuHeaderElementName.classList.add("text-black", "fw-semibold")
+
+            menuElementName.style.backgroundColor = "#E5EDFA"
+            menuElementName.classList.add("text-black")
+            tagElementName.classList.add("text-black", "fw-semibold")
+        }
+
+        const PATH_ORIGIN = window.location.origin;
+        const PATH_URL = window.location.href;
+
+        const dashboardMenuEl = document.querySelector("#dashboard-menu")
+        const addBookMenuEl = document.querySelector("#add-book-menu")
+
+        const bookHeaderEl = document.querySelector("#book-header")
+        const bookMenuEl = document.querySelector("#book-menu");
+
+        const customerHeaderEl = document.querySelector("#customer-header")
+        const addCustomerMenuEl = document.querySelector("#add-customer-menu")
+        const addAuthorMenuEl = document.querySelector("#add-author-menu")
+        const authorMenuEl = document.querySelector("#author-menu");
+        const authorHeaderEl = document.querySelector("#author-header");
+
+        const publisherHeaderEl = document.querySelector("#publisher-header")
+        const publisherMenuEl = document.querySelector("#publisher-menu")
+        const addPublisherMenuEl = document.querySelector("#add-publisher-menu")
+
+
+    if (PATH_URL == `${PATH_ORIGIN}/Admin/Dashboard`) {
+        //style = "background-color: #E5EDFA"
+        const overviewTagEl = document.querySelector("#overview-tag");
+
+        activeMenu(dashboardMenuEl, overviewTagEl)
+
+
+    } else if (PATH_URL == `${PATH_ORIGIN}/Book/AddBook`) {
+
+        const addBookTagEl = document.querySelector("#add-book-tag")
+
+
+        dropDownActiveMenu(bookHeaderEl, bookMenuEl, addBookMenuEl, addBookTagEl);
+
+    } else if (PATH_URL == `${PATH_ORIGIN}/Admin/AddCustomer`) {
+
+        const customerMenuEl = document.querySelector("#customer-menu")
+        const addCustomerTagEl = document.querySelector("#add-customer-tag")
+
+        dropDownActiveMenu(customerHeaderEl, customerMenuEl, addCustomerMenuEl, addCustomerTagEl);
+
+    } else if (PATH_URL == `${PATH_ORIGIN}/Author/AddAuthor`) {
+
+        const addAuthorTagEl = document.querySelector("#add-author-tag");
+
+        dropDownActiveMenu(authorHeaderEl, authorMenuEl, addAuthorMenuEl, addAuthorTagEl);
+
+    } else if (PATH_URL == `${PATH_ORIGIN}/Author/ManageAuthors`) {
+
+        const manageAuthorMenuEl = document.querySelector("#manage-author-menu");
+        const manageAuthorTagEl = document.querySelector("#manage-author-tag");
+
+        dropDownActiveMenu(authorHeaderEl, authorMenuEl, manageAuthorMenuEl, manageAuthorTagEl);
+
+    } else if (PATH_URL == `${PATH_ORIGIN}/Publisher/Create`) {
+
+        const addPublisherTagEl = document.querySelector("#add-publisher-tag")
+
+        dropDownActiveMenu(publisherHeaderEl, publisherMenuEl, addPublisherMenuEl, addPublisherTagEl);
+
+    } else if (PATH_URL == `${PATH_ORIGIN}/Publisher`) {
+
+        const managePublisherMenuEl = document.querySelector("#manage-publisher-menu");
+        const managePublisherTagEl = document.querySelector("#manage-publisher-tag");
+
+        dropDownActiveMenu(publisherHeaderEl, publisherMenuEl, managePublisherMenuEl, managePublisherTagEl);
+
+    } else if (PATH_URL == `${PATH_ORIGIN}/BookStatus/Create`) {
+
+        const addBookStatusMenuEl = document.querySelector("#add-book-status-menu");
+        const addStatusTagEl = document.querySelector("#add-status-tag");
+
+        dropDownActiveMenu(bookHeaderEl, bookMenuEl, addBookStatusMenuEl, addStatusTagEl);
+    }
+</script>
 
 </body>
 </html>

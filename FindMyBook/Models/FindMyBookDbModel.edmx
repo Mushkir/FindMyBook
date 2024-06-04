@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="findMyBookModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="findMyBookModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="table_admin">
           <Key>
             <PropertyRef Name="admin_id" />
@@ -42,6 +42,7 @@
           <Property Name="author_id_FK" Type="int" Nullable="false" />
           <Property Name="publisher_id_FK" Type="int" Nullable="false" />
           <Property Name="book_status_id_FK" Type="int" Nullable="false" />
+          <Property Name="book_image" Type="varchar" MaxLength="2000" />
         </EntityType>
         <EntityType Name="table_book_status">
           <Key>
@@ -158,7 +159,8 @@
           <EntitySet Name="table_publisher" EntityType="Self.table_publisher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tablePayment" EntityType="Self.tablePayment" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="findMyBookModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -199,6 +201,7 @@
           <Property Name="author_id_FK" Type="Int32" Nullable="false" />
           <Property Name="publisher_id_FK" Type="Int32" Nullable="false" />
           <Property Name="book_status_id_FK" Type="Int32" Nullable="false" />
+          <Property Name="book_image" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="table_book_status">
           <Key>
@@ -359,6 +362,7 @@
                 <ScalarProperty Name="author_id_FK" ColumnName="author_id_FK" />
                 <ScalarProperty Name="publisher_id_FK" ColumnName="publisher_id_FK" />
                 <ScalarProperty Name="book_status_id_FK" ColumnName="book_status_id_FK" />
+                <ScalarProperty Name="book_image" ColumnName="book_image" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<FindMyBook.ViewModels.BookViewModel>
+
+@{
+    ViewBag.Title = "Entire book list";
+    Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+}
+
+<h2 class="text-center font-weight-bold mt-4">
+    Dear Admin! Here you can manage and customize the Book Collection
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 36 36"><path fill="#553788" d="M15 31c0 2.209-.791 4-3 4H5c-4 0-4-14 0-14h7c2.209 0 3 1.791 3 4z" /><path fill="#9266CC" d="M34 33h-1V23h1a1 1 0 1 0 0-2H10c-4 0-4 14 0 14h24a1 1 0 1 0 0-2" /><path fill="#CCD6DD" d="M34.172 33H11c-2 0-2-10 0-10h23.172c1.104 0 1.104 10 0 10" /><path fill="#99AAB5" d="M11.5 25h23.35c-.135-1.175-.36-2-.678-2H11c-1.651 0-1.938 6.808-.863 9.188C9.745 29.229 10.199 25 11.5 25" /><path fill="#269" d="M12 8a4 4 0 0 1-4 4H4C0 12 0 1 4 1h4a4 4 0 0 1 4 4z" /><path fill="#55ACEE" d="M31 10h-1V3h1a1 1 0 1 0 0-2H7C3 1 3 12 7 12h24a1 1 0 1 0 0-2" /><path fill="#CCD6DD" d="M31.172 10H8c-2 0-2-7 0-7h23.172c1.104 0 1.104 7 0 7" /><path fill="#99AAB5" d="M8 5h23.925c-.114-1.125-.364-2-.753-2H8C6.807 3 6.331 5.489 6.562 7.5C6.718 6.142 7.193 5 8 5" /><path fill="#F4900C" d="M20 17a4 4 0 0 1-4 4H6c-4 0-4-9 0-9h10a4 4 0 0 1 4 4z" /><path fill="#FFAC33" d="M35 19h-1v-5h1a1 1 0 1 0 0-2H15c-4 0-4 9 0 9h20a1 1 0 1 0 0-2" /><path fill="#CCD6DD" d="M35.172 19H16c-2 0-2-5 0-5h19.172c1.104 0 1.104 5 0 5" /><path fill="#99AAB5" d="M16 16h19.984c-.065-1.062-.334-2-.812-2H16c-1.274 0-1.733 2.027-1.383 3.5c.198-.839.657-1.5 1.383-1.5" /></svg>
+</h2>
+<div class="mb-4 mx-auto" style="width: 100px; height: 2px; background-color: #0E223B"></div>
+
+<div class="overflow-scroll">
+    <table class="table  table-striped table-hover table-bordered mb-4" style="border-color: #0E223B">
+        <tr class="align-middle" style="background-color: #0E223B">
+            <th class="text-light text-center">S.No</th>
+            <th class="text-light text-center">Book ID</th>
+            <th class="text-light text-center">Title</th>
+            <th class="text-light text-center">ISBN</th>
+            <th class="text-light text-center">Book Image</th>
+            <th class="text-light text-center">Author</th>
+            <th class="text-light text-center">Publisher</th>
+            <th class="text-light text-center">Status</th>
+            <th class="text-light text-center">Book Language</th>
+            <th class="text-light text-center">Price</th>
+            <th class="text-light text-center">Pages</th>
+            <th class="text-light text-center">Published Date</th>
+            <th class="text-light text-center">Rating</th>
+            <th class="text-light text-center">Actions</th>
+
+        </tr>
+        @{
+            int serialNumber = 0;
+
+        }
+        @foreach (var item in Model)
+        {
+            <tr class="align-middle">
+                <td class="text-center">
+                    @{
+                        serialNumber++;
+                    }
+                    #@serialNumber
+                </td>
+                <td class="text-center">@item.BookId</td>
+                <td>@item.Title</td>
+                <td>@item.ISBN</td>
+                <td><img src="@Url.Content(item.BookImage)" class="object-fit-cover" alt="@item.Title" width="100" height="150" /></td>
+                <td>@item.AuthorName</td>
+                <td>@item.PublisherName</td>
+                <td class="text-center">@item.Status</td>
+                <td class="text-center">@item.BookLanguage</td>
+                <td class="text-center">@item.Price</td>
+                <td class="text-center">@item.Pages</td>
+                <td>@item.PublishedDate</td>
+                <td class="text-center">@item.Rating</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+
+
+            </tr>
+        }
+    </table>
+</div>
+

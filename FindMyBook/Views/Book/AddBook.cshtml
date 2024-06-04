@@ -6,146 +6,165 @@
 }
 
 <div class="container-fluid p-5 rounded-3 text-light" style="max-width: 1100px; background-color: #0E223B; margin-bottom: 200px; margin-top: 80px">
-    @using (Html.BeginForm("AddBook", "Book", FormMethod.Post, htmlAttributes: new { @id = "bookAddingForm" }))
+    @using (Html.BeginForm("AddBook", "Book", FormMethod.Post, new { enctype = "multipart/form-data", @id = "bookAddingForm" }))
     {
         @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4 class="font-weight-bold">Books detail adding page</h4>
-        <hr />
+        <div class="form-horizontal">
+            <h4 class="font-weight-bold">Books detail adding page</h4>
+            <hr />
 
-        <div>
-            <label class="text-danger">@ViewBag.Notification</label>
+            <div>
+                <label class="text-danger">@ViewBag.Notification</label>
+            </div>
+
+            @* Book name *@
+            <div class="form-group mb-3 d-flex align-items-center gap-4">
+                <div class="w-100">
+                    <div class="d-flex">
+                        @Html.LabelFor(model => model.book_name, htmlAttributes: new { @class = "form-label mb-1" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.book_name, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the book name" } })
+                        @Html.ValidationMessageFor(model => model.book_name, "", new { @class = "text-danger d-block mt-1", @style = "font-size: 14px" }) @* @style = "font-size: 14px" *@
+                    </div>
+                </div>
+
+                @* ISBN number *@
+                <div class="w-100">
+                    <div class="d-flex">
+                        @Html.LabelFor(model => model.book_isbn_number, htmlAttributes: new { @class = "form-label mb-1" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.book_isbn_number, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the ISBN number" } })
+                        @Html.ValidationMessageFor(model => model.book_isbn_number, "", new { @class = "text-danger d-block mt-1", @style = "font-size: 14px" })
+                    </div>
+                </div>
+
+                @* Price *@
+                <div class="w-100">
+                    <div class="d-flex">
+                        @Html.LabelFor(model => model.book_price, htmlAttributes: new { @class = "form-label mb-1" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.book_price, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the book price" } })
+                        @Html.ValidationMessageFor(model => model.book_price, "", new { @class = "text-danger d-block mt-1", @style = "font-size: 14px" })
+                    </div>
+                </div>
+            </div>
+
+            @* Author list *@
+            <div class="form-group mb-3 d-flex align-items-center gap-4">
+                <div class="w-100">
+                    <div class="d-flex">
+                        @Html.LabelFor(model => model.author_id_FK, "Author", htmlAttributes: new { @class = "form-label mb-1" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    @Html.DropDownList("author_id_FK", ViewBag.Authors as SelectList, "Select Author", htmlAttributes: new { @class = "form-select shadow-none" })
+                    @Html.ValidationMessageFor(model => model.author_id_FK, "", new { @class = "text-danger d-block mt-1", @style = "font-size: 14px" })
+                </div>
+
+                @* Publisher list *@
+                <div class="w-100">
+                    <div class="d-flex">
+                        @Html.LabelFor(model => model.publisher_id_FK, "Publisher", htmlAttributes: new { @class = "form-label mb-1" });
+                        <span class="text-danger">*</span>
+                    </div>
+                    @Html.DropDownList("publisher_id_FK", ViewBag.Publishers as SelectList, "Select Publisher", htmlAttributes: new { @class = "form-select shadow-none" })
+                    @Html.ValidationMessageFor(model => model.publisher_id_FK, "", new { @class = "text-danger d-block mt-1", @style = "font-size: 14px" })
+                </div>
+
+                @* Book status *@
+                <div class="w-100">
+                    <div class="d-flex">
+                        @Html.LabelFor(model => model.book_status_id_FK, "Book status", htmlAttributes: new { @class = "form-label mb-1" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    @Html.DropDownList("book_status_id_FK", ViewBag.BookStatus as SelectList, "Select book status", htmlAttributes: new { @class = "form-select shadow-none" })
+                    @Html.ValidationMessageFor(model => model.book_status_id_FK, "", new { @class = "text-danger d-block, mt-1" })
+
+                </div>
+            </div>
+
+            @* Published date *@
+            <div class="form-group mb-3 d-flex align-items-center gap-4">
+                <div class="w-100">
+                    <div class="d-flex">
+                        @Html.LabelFor(model => model.book_published_date, htmlAttributes: new { @class = "form-label mb-1" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.book_published_date, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the published date" } })
+                        @Html.ValidationMessageFor(model => model.book_published_date, "", new { @class = "text-danger d-block mt-1", @style = "font-size: 14px" })
+                    </div>
+                </div>
+
+                @* Book language *@
+                <div class="w-100">
+                    <div class="d-flex">
+                        @Html.LabelFor(model => model.book_language, htmlAttributes: new { @class = "form-label mb-1" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.book_language, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the book language" } })
+                        @Html.ValidationMessageFor(model => model.book_language, "", new { @class = "text-danger d-block mt-1", @style = "font-size: 14px" })
+                    </div>
+                </div>
+
+                @* Number of pages *@
+                <div class="w-100">
+                    <div class="d-flex">
+                        @Html.LabelFor(model => model.pages, htmlAttributes: new { @class = "form-label mb-1" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.pages, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the number of pages" } })
+                        @Html.ValidationMessageFor(model => model.pages, "", new { @class = "text-danger d-block mt-1", @style = "font-size: 14px" })
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="form-group mb-3 d-flex align-items-center gap-4">
+
+                @* Ratings *@
+                <div class="w-100">
+                    <div class="d-flex">
+                        @Html.LabelFor(model => model.rating, htmlAttributes: new { @class = "form-label mb-1" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div>
+                        @Html.EditorFor(model => model.rating, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the ratings of the book" } })
+                        @Html.ValidationMessageFor(model => model.rating, "", new { @class = "text-danger d-block mt-1", @style = "font-size: 14px" })
+                    </div>
+                </div>
+
+                @* Book image *@
+                <div class="w-100">
+                    <div class="d-flex">
+                        @Html.LabelFor(model => model.book_image, htmlAttributes: new { @class = "form-label mb-1" })
+                        <span class="text-danger">*</span>
+                    </div>
+                    <div>
+                        <input type="file" name="BookImageFile" id="BookImageFile" class="form-control" />
+                        <span class="text-danger d-block mt-1 visually-hidden" style="font-size: 14px" id="imgErrorElement">Book image field cannot be empty.</span>
+                    </div>
+                    
+                </div>
+
+            </div>
+
+
+            <div class="form-group mt-4">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" id="btnSubmit" value="Add book detail" class="btn btn-light w-25 font-weight-bold" />
+                </div>
+            </div>
         </div>
-
-        @* Book name *@
-        <div class="form-group mb-3 d-flex align-items-center gap-4">
-            <div class="w-100">
-                <div class="d-flex">
-                    @Html.LabelFor(model => model.book_name, htmlAttributes: new { @class = "form-label mb-1" })
-                    <span class="text-danger">*</span>
-                </div>
-                <div>
-                    @Html.EditorFor(model => model.book_name, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the book name" } })
-                    @Html.ValidationMessageFor(model => model.book_name, "", new { @class = "text-danger d-block mt-1", @style = "font-size: 14px" }) @* @style = "font-size: 14px" *@
-                </div>
-            </div>
-
-            @* ISBN number *@
-            <div class="w-100">
-                <div class="d-flex">
-                    @Html.LabelFor(model => model.book_isbn_number, htmlAttributes: new { @class = "form-label mb-1" })
-                    <span class="text-danger">*</span>
-                </div>
-                <div>
-                    @Html.EditorFor(model => model.book_isbn_number, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the ISBN number" } })
-                    @Html.ValidationMessageFor(model => model.book_isbn_number, "", new { @class = "text-danger d-block mt-1", @style = "font-size: 14px" })
-                </div>
-            </div>
-
-            @* Price *@
-            <div class="w-100">
-                <div class="d-flex">
-                    @Html.LabelFor(model => model.book_price, htmlAttributes: new { @class = "form-label mb-1" })
-                    <span class="text-danger">*</span>
-                </div>
-                <div>
-                    @Html.EditorFor(model => model.book_price, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the book price" } })
-                    @Html.ValidationMessageFor(model => model.book_price, "", new { @class = "text-danger d-block mt-1", @style = "font-size: 14px" })
-                </div>
-            </div>
-        </div>
-
-        @* Author list *@
-        <div class="form-group mb-3 d-flex align-items-center gap-4">
-            <div class="w-100">
-                <div class="d-flex">
-                    @Html.LabelFor(model => model.author_id_FK, "Author", htmlAttributes: new { @class = "form-label mb-1" })
-                    <span class="text-danger">*</span>
-                </div>
-                @Html.DropDownList("author_id_FK", ViewBag.Authors as SelectList, "Select Author", htmlAttributes: new { @class = "form-select shadow-none" })
-                @Html.ValidationMessageFor(model => model.author_id_FK, "", new { @class = "text-danger d-block mt-1", @style = "font-size: 14px" })
-            </div>
-
-            @* Publisher list *@
-            <div class="w-100">
-                <div class="d-flex">
-                    @Html.LabelFor(model => model.publisher_id_FK, "Publisher", htmlAttributes: new { @class = "form-label mb-1" });
-                    <span class="text-danger">*</span>
-                </div>
-                @Html.DropDownList("publisher_id_FK", ViewBag.Publishers as SelectList, "Select Publisher", htmlAttributes: new { @class = "form-select shadow-none" })
-                @Html.ValidationMessageFor(model => model.publisher_id_FK, "", new { @class = "text-danger d-block mt-1", @style = "font-size: 14px" })
-            </div>
-
-            @* Book status *@
-            <div class="w-100">
-                <div class="d-flex">
-                    @Html.LabelFor(model => model.book_status_id_FK, "Book status", htmlAttributes: new { @class = "form-label mb-1" })
-                    <span class="text-danger">*</span>
-                </div>
-                @Html.DropDownList("book_status_id_FK", ViewBag.BookStatus as SelectList, "Select book status", htmlAttributes: new { @class = "form-select shadow-none" })
-                @Html.ValidationMessageFor(model => model.book_status_id_FK, "", new { @class = "text-danger d-block, mt-1" })
-
-            </div>
-        </div>
-
-        @* Published date *@
-        <div class="form-group mb-3 d-flex align-items-center gap-4">
-            <div class="w-100">
-                <div class="d-flex">
-                    @Html.LabelFor(model => model.book_published_date, htmlAttributes: new { @class = "form-label mb-1" })
-                    <span class="text-danger">*</span>
-                </div>
-                <div>
-                    @Html.EditorFor(model => model.book_published_date, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the published date" } })
-                    @Html.ValidationMessageFor(model => model.book_published_date, "", new { @class = "text-danger d-block mt-1", @style = "font-size: 14px" })
-                </div>
-            </div>
-
-            @* Book language *@
-            <div class="w-100">
-                <div class="d-flex">
-                    @Html.LabelFor(model => model.book_language, htmlAttributes: new { @class = "form-label mb-1" })
-                    <span class="text-danger">*</span>
-                </div>
-                <div>
-                    @Html.EditorFor(model => model.book_language, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the book language" } })
-                    @Html.ValidationMessageFor(model => model.book_language, "", new { @class = "text-danger d-block mt-1", @style = "font-size: 14px" })
-                </div>
-            </div>
-
-            @* Number of pages *@
-            <div class="w-100">
-                <div class="d-flex">
-                    @Html.LabelFor(model => model.pages, htmlAttributes: new { @class = "form-label mb-1" })
-                    <span class="text-danger">*</span>
-                </div>
-                <div>
-                    @Html.EditorFor(model => model.pages, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the number of pages" } })
-                    @Html.ValidationMessageFor(model => model.pages, "", new { @class = "text-danger d-block mt-1", @style = "font-size: 14px" })
-                </div>
-            </div>
-
-            @* Ratings *@
-            <div class="w-100">
-                <div class="d-flex">
-                    @Html.LabelFor(model => model.rating, htmlAttributes: new { @class = "form-label mb-1" })
-                    <span class="text-danger">*</span>
-                </div>
-                <div>
-                    @Html.EditorFor(model => model.rating, new { htmlAttributes = new { @class = "form-control shadow-none", @placeholder = "Enter the ratings of the book" } })
-                    @Html.ValidationMessageFor(model => model.rating, "", new { @class = "text-danger d-block mt-1", @style = "font-size: 14px" })
-                </div>
-            </div>
-        </div>
-
-
-        <div class="form-group mt-4">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Add book detail" class="btn btn-light w-25 font-weight-bold" />
-            </div>
-        </div>
-    </div>
     }
 </div>
 
@@ -153,49 +172,72 @@
     @Scripts.Render("~/bundles/jqueryval")
 
 
-<script>
-    $(document).ready(function () {
-        $(document).on("submit", "#bookAddingForm", function (e) {
+    <script>
+        $(document).ready(function () {
 
-            e.preventDefault();
-            e.stopImmediatePropagation();
+            const btnSubmitEl = document.querySelector("#btnSubmit");
 
-            const formData = $(this).serialize();
-            $.ajax({
+            /*const ImageFileEl = document.querySelector("#BookImageFile");*/
 
-                type: 'POST',
-                url: '/Book/AddBook',
-                data: formData,
-                dataType: 'json',
-                success: function (response) {
-                    /*console.log(response);*/
-                    const { status, message } = response;
-                    if (status == "200") {
+            btnSubmitEl.addEventListener("click", () => {
+                const ImageFileEl = document.querySelector("#BookImageFile");
+                const imgErrorEl = document.querySelector("#imgErrorElement");
+                if (ImageFileEl.value === "") {
 
-                        Swal.fire({
-                            title: "Success!",
-                            text: `Dear Admin! ${message}`,
-                            icon: "success"
-                        }).then((result) => {
+                    imgErrorEl.classList.remove("visually-hidden");
 
-                            $("#bookAddingForm")[0].reset();
-                        });
-                    } else {
-                        Swal.fire({
-                            title: "Data already exist!",
-                            text: `Dear Admin! ${message}`,
-                            icon: "error"
-                        });
-                    }
+                } else {
 
-                }, error: function (xhr, status, error) {
-                    console.error(xhr.responseText);
+                    imgErrorEl.classList.add("visually-hidden");
                 }
-
             })
 
+            //$(document).on("submit", "#bookAddingForm", function (e) {
 
+            //    e.preventDefault();
+            //    e.stopImmediatePropagation();
+
+            //    const formData = $(this).serialize();
+            //    $.ajax({
+
+            //        type: 'POST',
+            //        url: '/Book/AddBook',
+            //        data: formData,
+            //        dataType: 'json',
+            //        contentType: 'false',
+            //        processData: 'false',
+            //        success: function (response) {
+            //            console.log(response)
+                        
+            //            //const { status, message } = response;
+            //            //if (status == "200") {
+
+            //            //    Swal.fire({
+            //            //        title: "Success!",
+            //            //        text: `Dear Admin! ${message}`,
+            //            //        icon: "success"
+            //            //    }).then((result) => {
+
+            //            //        $("#bookAddingForm")[0].reset();
+            //            //    });
+            //            //} else {
+            //            //    Swal.fire({
+            //            //        title: "Data already exist!",
+            //            //        text: `Dear Admin! ${message}`,
+            //            //        icon: "error"
+            //            //    });
+            //            //}
+                        
+
+            //        }, error: function (xhr, status, error) {
+            //            console.error(xhr.responseText);
+            //        }
+
+            //    })
+
+
+            //})
         })
-    })
-</script>
+    </script>
 }
+

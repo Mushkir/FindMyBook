@@ -65,7 +65,7 @@ namespace FindMyBook.Controllers
                 {
                     string fileName = Path.GetFileNameWithoutExtension(table_Customer.ImageFile.FileName);
                     string extension = Path.GetExtension(table_Customer.ImageFile.FileName);
-
+                    fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
                     table_Customer.customer_image = "../Image/" + fileName;
                     fileName = Path.Combine(Server.MapPath("../Image/"), fileName);
 
