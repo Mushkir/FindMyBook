@@ -1,8 +1,18 @@
 ﻿@model IEnumerable<FindMyBook.ViewModels.BookViewModel>
 
 @{
-    ViewBag.Title = "Entire book list";
-    Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+    if (Session["AdminName"] != null)
+    {
+        ViewBag.AdminName = $"{Session["AdminName"]}";
+        ViewBag.Title = "Entire book list";
+        Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+
+    }
+    else
+    {
+        ViewBag.Title = "Authors List";
+        Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+    }
 }
 
 <h2 class="text-center font-weight-bold mt-4">

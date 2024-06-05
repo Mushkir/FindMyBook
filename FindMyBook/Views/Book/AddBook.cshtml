@@ -1,8 +1,18 @@
 ﻿@model FindMyBook.Models.table_book_detail
 
 @{
-    ViewBag.Title = "Add Book Detail";
-    Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+    if (Session["AdminName"] != null)
+    {
+        ViewBag.AdminName = $"{Session["AdminName"]}";
+        ViewBag.Title = "Add Book Detail";
+        Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+
+    }
+    else
+    {
+        ViewBag.Title = "Authors List";
+        Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+    }
 }
 
 <div class="container-fluid p-5 rounded-3 text-light" style="max-width: 1100px; background-color: #0E223B; margin-bottom: 200px; margin-top: 80px">
@@ -153,7 +163,7 @@
                         <input type="file" name="BookImageFile" id="BookImageFile" class="form-control" />
                         <span class="text-danger d-block mt-1 visually-hidden" style="font-size: 14px" id="imgErrorElement">Book image field cannot be empty.</span>
                     </div>
-                    
+
                 </div>
 
             </div>
@@ -192,54 +202,54 @@
                 }
             })
 
-            //$(document).on("submit", "#bookAddingForm", function (e) {
+        //$(document).on("submit", "#bookAddingForm", function (e) {
 
-            //    e.preventDefault();
-            //    e.stopImmediatePropagation();
+        //    e.preventDefault();
+        //    e.stopImmediatePropagation();
 
-            //    Swal.fire({
-            //        title: "Success!",
-            //        text: "Dear admin! New book details has been added successfully.",
-            //        icon: "success"
-            //    });
+        //    Swal.fire({
+        //        title: "Success!",
+        //        text: "Dear admin! New book details has been added successfully.",
+        //        icon: "success"
+        //    });
 
-            //    const formData = $(this).serialize();
-            //    $.ajax({
+        //    const formData = $(this).serialize();
+        //    $.ajax({
 
-            //        type: 'POST',
-            //        url: '/Book/AddBook',
-            //        data: formData,
-            //        dataType: 'json',
-            //        contentType: 'false',
-            //        processData: 'false',
-            //        success: function (response) {
-            //            console.log(response)
-                        
-            //            //const { status, message } = response;
-            //            //if (status == "200") {
+        //        type: 'POST',
+        //        url: '/Book/AddBook',
+        //        data: formData,
+        //        dataType: 'json',
+        //        contentType: 'false',
+        //        processData: 'false',
+        //        success: function (response) {
+        //            console.log(response)
 
-            //            //    Swal.fire({
-            //            //        title: "Success!",
-            //            //        text: `Dear Admin! ${message}`,
-            //            //        icon: "success"
-            //            //    }).then((result) => {
+        //            //const { status, message } = response;
+        //            //if (status == "200") {
 
-            //            //        $("#bookAddingForm")[0].reset();
-            //            //    });
-            //            //} else {
-            //            //    Swal.fire({
-            //            //        title: "Data already exist!",
-            //            //        text: `Dear Admin! ${message}`,
-            //            //        icon: "error"
-            //            //    });
-            //            //}
-                        
+        //            //    Swal.fire({
+        //            //        title: "Success!",
+        //            //        text: `Dear Admin! ${message}`,
+        //            //        icon: "success"
+        //            //    }).then((result) => {
 
-            //        }, error: function (xhr, status, error) {
-            //            console.error(xhr.responseText);
-            //        }
+        //            //        $("#bookAddingForm")[0].reset();
+        //            //    });
+        //            //} else {
+        //            //    Swal.fire({
+        //            //        title: "Data already exist!",
+        //            //        text: `Dear Admin! ${message}`,
+        //            //        icon: "error"
+        //            //    });
+        //            //}
 
-             //   })
+
+        //        }, error: function (xhr, status, error) {
+        //            console.error(xhr.responseText);
+        //        }
+
+        //   })
 
 
         //    })

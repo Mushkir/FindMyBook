@@ -281,7 +281,6 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_Admin_Dashboard_Layout.cshtml" />
     <Content Include="Views\Admin\Dashboard.cshtml" />
-    <Content Include="Views\Admin\AddCustomer.cshtml" />
     <Content Include="Views\Author\AddAuthor.cshtml" />
     <Content Include="Views\Author\ManageAuthors.cshtml" />
     <Content Include="Views\Author\AuthorDetails.cshtml" />
@@ -293,13 +292,15 @@
     <Content Include="Views\Book\AddBook.cshtml" />
     <Content Include="Views\Book\Index.cshtml" />
     <Content Include="Views\Book\FindBooks.cshtml" />
+    <Content Include="Views\Cart\AddCart.cshtml" />
+    <Content Include="Views\Admin\AddCustomer.cshtml" />
+    <Content Include="Views\Book\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BookImages\" />
     <Folder Include="Content\NewFolder1\" />
     <Folder Include="Image\" />
-    <Folder Include="Views\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

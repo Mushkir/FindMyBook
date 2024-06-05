@@ -1,8 +1,18 @@
 ﻿@model FindMyBook.Models.table_publisher
 
 @{
-    ViewBag.Title = "Add publisher detail";
-    Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+    if (Session["AdminName"] != null)
+    {
+        ViewBag.AdminName = $"{Session["AdminName"]}";
+        ViewBag.Title = "Add publisher detail";
+        Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+
+    }
+    else
+    {
+        ViewBag.Title = "Authors List";
+        Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+    }
 }
 
 <div class="container-fluid p-5 rounded-3 text-light" style="max-width: 800px; background-color: #0E223B; margin-bottom: 200px; margin-top: 80px">
@@ -91,59 +101,59 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-<script>
-    $(document).ready(function () {
+    <script>
+        $(document).ready(function () {
 
-        $(document).on("submit", "#addPublisherForm", function (e) {
+            $(document).on("submit", "#addPublisherForm", function (e) {
 
-            e.preventDefault();
-            e.stopImmediatePropagation();
+                e.preventDefault();
+                e.stopImmediatePropagation();
 
-            const formData = $(this).serialize();
+                const formData = $(this).serialize();
 
 
-            $.ajax({
-                type: "POST",
-                url: '/Publisher/Create',
-                data: formData,
-                dataType: "json",
-                success: function (response) {
-                    // console.log(response);
-                    const { status, message } = response
+                $.ajax({
+                    type: "POST",
+                    url: '/Publisher/Create',
+                    data: formData,
+                    dataType: "json",
+                    success: function (response) {
+                        // console.log(response);
+                        const { status, message } = response
 
-                    if (status == "200") {
-                        Swal.fire({
-                            title: "Publisher registered!",
-                            text: `Dear Admin! ${message}`,
-                            icon: "success"
-                        }).then((result) => {
+                        if (status == "200") {
+                            Swal.fire({
+                                title: "Publisher registered!",
+                                text: `Dear Admin! ${message}`,
+                                icon: "success"
+                            }).then((result) => {
 
-                            $("#addPublisherForm")[0].reset();
-                        });
+                                $("#addPublisherForm")[0].reset();
+                            });
 
-                    } else if (status == "409") {
-                        Swal.fire({
-                            title: "Data already exist!",
-                            text: `Dear Admin! ${message}`,
-                            icon: "error"
+                        } else if (status == "409") {
+                            Swal.fire({
+                                title: "Data already exist!",
+                                text: `Dear Admin! ${message}`,
+                                icon: "error"
 
-                        });
-                    } else {
-                        Swal.fire({
-                            title: "Techinal error!",
-                            text: `Dear Admin! Currently a technical error occured! Please contact your IT support!`,
-                            icon: "error"
-                        })
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Techinal error!",
+                                text: `Dear Admin! Currently a technical error occured! Please contact your IT support!`,
+                                icon: "error"
+                            })
+                        }
+
+                    }, error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
                     }
+                })
 
-                }, error: function (xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
+
             })
 
-
         })
-
-    })
-</script>
+    </script>
 }

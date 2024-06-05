@@ -1,8 +1,18 @@
 ﻿@model IEnumerable<FindMyBook.Models.table_publisher>
 
 @{
-    ViewBag.Title = "All publishers section";
-    Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+    if (Session["AdminName"] != null)
+    {
+        ViewBag.AdminName = $"{Session["AdminName"]}";
+        ViewBag.Title = "Entire publisher detail";
+        Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+
+    }
+    else
+    {
+        ViewBag.Title = "Authors List";
+        Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+    }
 }
 
 <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
@@ -41,43 +51,44 @@
         </th>
     </tr>
 
-    @{ 
+    @{
 
         int serialNumber = 0;
     }
 
-@foreach (var item in Model) {
-    <tr>
-        <td class="text-center">
-            @{ 
-                serialNumber++;
-            }
-            #@serialNumber
-        </td>
-        <td class="text-center">
-            @Html.DisplayFor(modelItem => item.publisher_id)
-        </td>
-        <td class="text-center">
-            @Html.DisplayFor(modelItem => item.publisher_name)
-        </td>
-        <td class="text-center">
-            @Html.DisplayFor(modelItem => item.address)
-        </td>
-        <td class="text-center">
-            @Html.DisplayFor(modelItem => item.country)
-        </td>
-        <td class="text-center">
-            @Html.DisplayFor(modelItem => item.publisher_phone_number)
-        </td>
-        <td class="text-center">
-            @Html.DisplayFor(modelItem => item.publisher_email)
-        </td>
-        <td class="text-center">
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="text-center">
+                @{
+                    serialNumber++;
+                }
+                #@serialNumber
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.publisher_id)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.publisher_name)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.address)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.country)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.publisher_phone_number)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.publisher_email)
+            </td>
+            <td class="text-center">
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
 
 </table>

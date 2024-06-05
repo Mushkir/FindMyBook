@@ -148,6 +148,30 @@ namespace FindMyBook.Controllers
         }
 
 
+        public ActionResult Details(int id)
+        {
+            var bookDetails = (from book in db.table_book_detail
+                               join author in db.table_author on book.author_id_FK equals author.author_id
+                               join publisher in db.table_publisher on book.publisher_id_FK equals publisher.publisher_id
+                               join status in db.table_book_status on book.book_status_id_FK equals status.book_status_id
+                               where book.book_id == id
+                               select new BookViewModel
+                               {
+                                   BookId = book.book_id,
+                                   Title = book.book_name,
+                                   ISBN = book.book_isbn_number,
+                                   BookLanguage = book.book_language,
+                                   Price = book.book_price,
+                                   Pages = book.pages,
+                                   PublishedDate = book.book_published_date,
+                                   Rating = book.rating,
+                                   AuthorName = author.author_name,
+                                   PublisherName = publisher.publisher_name,
+                                   Status = status.book_status,
+                                   BookImage = book.book_image // Include book image in the view model
+                               }).FirstOrDefault();
+            return View(bookDetails);
+        }
 
 
     }

@@ -1,0 +1,26 @@
+﻿@model FindMyBook.ViewModels.BookViewModel
+
+@{
+    ViewBag.Title = "Book Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="@Url.Content(Model.BookImage)" class="img-fluid" alt="@Model.Title" />
+        </div>
+        <div class="col-md-8">
+            <h2>@Model.Title</h2>
+            <p><strong>Author:</strong> @Model.AuthorName</p>
+            <p><strong>ISBN:</strong> @Model.ISBN</p>
+            <p><strong>Language:</strong> @Model.BookLanguage</p>
+            <p><strong>Price:</strong> LKR. @Model.Price</p>
+            <p><strong>Pages:</strong> @Model.Pages</p>
+            <p><strong>Published Date:</strong> @Model.PublishedDate.ToShortDateString()</p>
+            <p><strong>Rating:</strong> @Model.Rating</p>
+            <p><strong>Publisher:</strong> @Model.PublisherName</p>
+            <p><strong>Status:</strong> @Model.Status</p>
+        </div>
+    </div>
+</div>

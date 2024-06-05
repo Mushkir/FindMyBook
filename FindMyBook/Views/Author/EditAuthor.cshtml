@@ -1,8 +1,18 @@
 ﻿@model FindMyBook.Models.table_author
 
 @{
-    ViewBag.Title = "Edit author page";
-    Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+    if (Session["AdminName"] != null)
+    {
+        ViewBag.AdminName = $"{Session["AdminName"]}";
+        ViewBag.Title = "Edit Author Page";
+        Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+
+    }
+    else
+    {
+        ViewBag.Title = "Authors List";
+        Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+    }
 }
 
 <div class="container-fluid p-5 rounded-3 text-light" style="max-width: 800px; background-color: #0E223B; margin-bottom: 200px; margin-top: 80px">
@@ -103,7 +113,7 @@
 
                                 if (result.isConfirmed == true) {
                                     window.location.href = '/Author/ManageAuthors';
-                                }  
+                                }
                             });
                         }
 

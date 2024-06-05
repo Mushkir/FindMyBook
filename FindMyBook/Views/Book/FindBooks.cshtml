@@ -6,7 +6,7 @@
 }
 
 <h3 class="text-center font-weight-bold mt-4 mb-3">
-    Book Lovers! Delve into a World of Literary Marvels as You Explore All Our Book Details!
+    Dear Book Lovers! Delve into a World of Literary Marvels as You Explore All Our Book Details!
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 36 36"><path fill="#553788" d="M15 31c0 2.209-.791 4-3 4H5c-4 0-4-14 0-14h7c2.209 0 3 1.791 3 4z" /><path fill="#9266CC" d="M34 33h-1V23h1a1 1 0 1 0 0-2H10c-4 0-4 14 0 14h24a1 1 0 1 0 0-2" /><path fill="#CCD6DD" d="M34.172 33H11c-2 0-2-10 0-10h23.172c1.104 0 1.104 10 0 10" /><path fill="#99AAB5" d="M11.5 25h23.35c-.135-1.175-.36-2-.678-2H11c-1.651 0-1.938 6.808-.863 9.188C9.745 29.229 10.199 25 11.5 25" /><path fill="#269" d="M12 8a4 4 0 0 1-4 4H4C0 12 0 1 4 1h4a4 4 0 0 1 4 4z" /><path fill="#55ACEE" d="M31 10h-1V3h1a1 1 0 1 0 0-2H7C3 1 3 12 7 12h24a1 1 0 1 0 0-2" /><path fill="#CCD6DD" d="M31.172 10H8c-2 0-2-7 0-7h23.172c1.104 0 1.104 7 0 7" /><path fill="#99AAB5" d="M8 5h23.925c-.114-1.125-.364-2-.753-2H8C6.807 3 6.331 5.489 6.562 7.5C6.718 6.142 7.193 5 8 5" /><path fill="#F4900C" d="M20 17a4 4 0 0 1-4 4H6c-4 0-4-9 0-9h10a4 4 0 0 1 4 4z" /><path fill="#FFAC33" d="M35 19h-1v-5h1a1 1 0 1 0 0-2H15c-4 0-4 9 0 9h20a1 1 0 1 0 0-2" /><path fill="#CCD6DD" d="M35.172 19H16c-2 0-2-5 0-5h19.172c1.104 0 1.104 5 0 5" /><path fill="#99AAB5" d="M16 16h19.984c-.065-1.062-.334-2-.812-2H16c-1.274 0-1.733 2.027-1.383 3.5c.198-.839.657-1.5 1.383-1.5" /></svg>
 </h3>
 
@@ -31,14 +31,14 @@
                             <p class="card-text w-25 text-end" style="color: #0E223B"> <i class="fa-solid fa-star"></i> @item.Rating</p>
                         </div>
                         <p class="card-text" style="color: #3e4e62"><span class="font-weight-bold">Author:</span> @item.AuthorName</p>
-                        <p class="card-text" style="color: #3e4e62"><span class="font-weight-bold">Price:</span> Rs. @item.Price</p>
+                        <p class="card-text" style="color: #3e4e62"><span class="font-weight-bold">Price:</span> LKR. @item.Price</p>
                     </div>
                     <div class="p-2">
-                        <div class="addToCartBtn rounded-2 d-flex justify-content-center align-items-center px-4 py-2">
+                        <div class="addToCartBtn rounded-2 d-flex justify-content-center align-items-center px-4 py-2" style="cursor: pointer" id="addToCartBtnDiv">
                             <div class="text-light">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12 10l-1.4-1.4L12.175 7H8V5h4.175l-1.6-1.6L12 2l4 4zM7 22q-.825 0-1.412-.587T5 20t.588-1.412T7 18t1.413.588T9 20t-.587 1.413T7 22m10 0q-.825 0-1.412-.587T15 20t.588-1.412T17 18t1.413.588T19 20t-.587 1.413T17 22M1 4V2h3.275l4.25 9h7l3.9-7H21.7l-4.4 7.95q-.275.5-.737.775T15.55 13H8.1L7 15h12v2H7q-1.125 0-1.713-.975T5.25 14.05L6.6 11.6L3 4z" /></svg>
                             </div>
-                            @Html.ActionLink("Add to cart", "Edit", new { /* id=item.PrimaryKey */ }, new { @class = "text-decoration-none text-light" })
+                            @Html.ActionLink("Add to cart", "AddCart", "Cart", new { id=item.BookId }, new { @class = "text-decoration-none text-light", @id = "btnAddToCart" })
                         </div>
                         <div class="viewDetailBtn text-black d-flex rounded-2 mt-2 px-4 py-2 justify-content-center align-items-center" style="border: 1px solid #26384e">
                             <div>
@@ -64,7 +64,7 @@
             }
 
             // JQuery request to Live search.
-            // When user types on Search bar, it will trace the each letters using keyup() and it will search in DB. 
+            // When user types on Search bar, it will trace the each letters using keyup() and it will search in DB.
             // If the result exist, it will show the output.
             $("#searchBook").keyup(function () {
                 const searchText = $(this).val().toLowerCase();
@@ -78,6 +78,49 @@
                     }
 
                 })
+            })
+
+            // Check the user logged-in or not.
+            $("body").on("click", "#btnAddToCart", function (e) {
+                e.preventDefault();
+
+                const customerId = '@Session["CustomerId"]';
+                if (customerId === '') {
+                    Swal.fire({
+                        title: "Access required!",
+                        text: "Dear customer, please log in to continue.Thank you.",
+                        icon: "info"
+                    }).then((result) => {
+                        if (result.isConfirmed == true) {
+
+                            window.location.href = '@Url.Action("Login", "Home")';
+                        }
+                    });
+                } else {
+                    const hrefEl = $(this).attr("href");
+                    const arrayOfHrefEl = hrefEl.split("/AddCart/");
+                    const bookId = arrayOfHrefEl[1];
+
+                    $.ajax({
+                        url: '/',
+                        type: 'POST',
+                        data: { customerId: customerId, bookId: bookId },
+                        success: function (response) {
+
+                            console.log(response);
+
+                        }, error: function (xhr, status, error) {
+                            // Handle error if needed
+                            console.error("Error occured: " + xhr.responseText);
+                        }
+
+                    })
+
+
+                }
+
+
+
             })
         });
     </script>
