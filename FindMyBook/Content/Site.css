@@ -66,3 +66,24 @@ textarea {
 .button-color {
     background-color: #0E223B !important;
 }
+
+.addToCartBtn {
+    background-color: #0E223B !important;
+}
+
+.addToCartBtn:hover {
+    background-color: #26384e !important;
+}
+
+.viewDetailBtn:hover {
+    background-color: #26384e;
+    color: white !important;
+}
+
+.viewTag {
+    color: black
+}
+
+.viewTag:hover {
+    color: white !important;
+}

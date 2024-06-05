@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3f55af9cfda844d29dd8f6bf6295a685" Name="Diagram1">
+      <Diagram DiagramId="c957fe67bea44f46b7af06439807f40a" Name="Diagram1" ZoomLevel="39">
         <EntityTypeShape EntityType="findMyBookModel.table_admin" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="findMyBookModel.table_author" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="findMyBookModel.table_book_detail" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
@@ -18,6 +18,7 @@
         <EntityTypeShape EntityType="findMyBookModel.table_payment_status" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="findMyBookModel.table_publisher" Width="1.5" PointX="4.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="findMyBookModel.tablePayment" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="findMyBookModel.table_cart" Width="1.5" PointX="6.75" PointY="9.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

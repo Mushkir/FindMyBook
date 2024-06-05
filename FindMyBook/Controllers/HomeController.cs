@@ -88,6 +88,7 @@ namespace FindMyBook.Controllers
             }
         }
 
+
         [HttpGet]
         public ActionResult Login()
         {
@@ -106,28 +107,17 @@ namespace FindMyBook.Controllers
                     Session["CustomerId"] = isUserExist.customer_id.ToString();
                     Session["CustomerName"] = isUserExist.customer_last_name.ToString();
 
-                    return RedirectToAction("Index", "Customer");
+                    return Json(new { status = "200", message = Session["CustomerName"] + "! Your login process has been done successfully." });
 
                 }
                 else
                 {
-                    ViewBag.Notification = "Wrong username and password. Try again...";
+                    return Json(new { status = "401", message = "Wrong username or password!" });
+                
                 }
-                //if (ModelState.IsValid)
-                //{
-
-
-                //} else
-                //{
-                //    ViewBag.Notification = "Connection error! Please try again later...";
-                //}
-
-                return View();
-
             } catch (Exception ex)
             {
-                ViewBag.Notification = "An error occured: " + ex.Message;
-                return View();
+                return Json(new { status = "409", message = "An error occured: " + ex.Message });
             }
 
         }

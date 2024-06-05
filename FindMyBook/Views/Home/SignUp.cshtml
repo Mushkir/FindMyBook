@@ -8,7 +8,7 @@
 
     <h2 class="font-weight-bold" style="color: #0E223B;">Sign-Up</h2>
 
-    @using (Html.BeginForm("SignUp", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("SignUp", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @id = "signUpForm" }))
     {
         @Html.AntiForgeryToken()
 
@@ -195,6 +195,27 @@
                 imgErrorEl.classList.add("visually-hidden");
             }
         })
+
+
+        $(document).on("submit", "#signUpForm", function (e) {
+
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            Swal.fire({
+                title: "Account created!",
+                text: "Dear customer! Your sign-up process has been processed successfully.",
+                icon: "success"
+            });
+
+            //const formData = new FormData();
+            //formData.append('ImageFile', $("#ImageFile")[0].files[0]);
+
+
+
+
+        })
+
 
 
     })

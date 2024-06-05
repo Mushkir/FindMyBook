@@ -14,6 +14,30 @@ namespace FindMyBook.Controllers
     public class BookController : Controller
     {
         findMyBookEntities1 db = new findMyBookEntities1();
+
+        //private void FetchBookDetails()
+        //{
+        //    var bookDetails = (from book in db.table_book_detail
+        //                       join author in db.table_author on book.author_id_FK equals author.author_id
+        //                       join publisher in db.table_publisher on book.publisher_id_FK equals publisher.publisher_id
+        //                       join status in db.table_book_status on book.book_status_id_FK equals status.book_status_id
+        //                       select new BookViewModel
+        //                       {
+        //                           BookId = book.book_id,
+        //                           Title = book.book_name,
+        //                           ISBN = book.book_isbn_number,
+        //                           BookLanguage = book.book_language,
+        //                           Price = book.book_price,
+        //                           Pages = book.pages,
+        //                           PublishedDate = book.book_published_date,
+        //                           Rating = book.rating,
+        //                           AuthorName = author.author_name,
+        //                           PublisherName = publisher.publisher_name,
+        //                           Status = status.book_status,
+        //                           BookImage = book.book_image // Include book image in the view model
+        //                       }).ToList();
+        //}
+
         // GET: Book
         public ActionResult Index()
         {
@@ -95,6 +119,32 @@ namespace FindMyBook.Controllers
             ViewBag.BookStatus = new SelectList(db.table_book_status.ToList(), "book_status_id", "book_status", table_Book_Detail.book_status_id_FK);
 
             return View(table_Book_Detail);
+        }
+
+
+        // Find Books
+        public ActionResult FindBooks()
+        {
+                var bookDetails = (from book in db.table_book_detail
+                                   join author in db.table_author on book.author_id_FK equals author.author_id
+                                   join publisher in db.table_publisher on book.publisher_id_FK equals publisher.publisher_id
+                                   join status in db.table_book_status on book.book_status_id_FK equals status.book_status_id
+                                   select new BookViewModel
+                                   {
+                                       BookId = book.book_id,
+                                       Title = book.book_name,
+                                       ISBN = book.book_isbn_number,
+                                       BookLanguage = book.book_language,
+                                       Price = book.book_price,
+                                       Pages = book.pages,
+                                       PublishedDate = book.book_published_date,
+                                       Rating = book.rating,
+                                       AuthorName = author.author_name,
+                                       PublisherName = publisher.publisher_name,
+                                       Status = status.book_status,
+                                       BookImage = book.book_image // Include book image in the view model
+                                   }).ToList();
+            return View(bookDetails);
         }
 
 

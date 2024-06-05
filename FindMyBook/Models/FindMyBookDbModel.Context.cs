@@ -38,5 +38,6 @@ namespace FindMyBook.Models
         public DbSet<table_payment_status> table_payment_status { get; set; }
         public DbSet<table_publisher> table_publisher { get; set; }
         public DbSet<tablePayment> tablePayments { get; set; }
+        public DbSet<table_cart> table_cart { get; set; }
     }
 }

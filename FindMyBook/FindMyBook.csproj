@@ -130,6 +130,7 @@
     <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\BookStatusController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PublisherController.cs" />
@@ -164,6 +165,9 @@
       <DependentUpon>FindMyBookDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\table_book_status.cs">
+      <DependentUpon>FindMyBookDbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\table_cart.cs">
       <DependentUpon>FindMyBookDbModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\table_customer.cs">
@@ -288,12 +292,14 @@
     <Content Include="Views\BookStatus\Create.cshtml" />
     <Content Include="Views\Book\AddBook.cshtml" />
     <Content Include="Views\Book\Index.cshtml" />
+    <Content Include="Views\Book\FindBooks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BookImages\" />
     <Folder Include="Content\NewFolder1\" />
     <Folder Include="Image\" />
+    <Folder Include="Views\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

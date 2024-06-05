@@ -11,14 +11,11 @@ namespace FindMyBook.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class table_book_status
+    
+    public partial class table_cart
     {
-        public int book_status_id { get; set; }
-
-        [Required(ErrorMessage = "Book status field is required")]
-        [Display(Name = "Book status")]
-        public string book_status { get; set; }
+        public int cart_id { get; set; }
+        public int book_id_FK { get; set; }
+        public int customer_id_FK { get; set; }
     }
 }
