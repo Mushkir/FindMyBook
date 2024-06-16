@@ -1,4 +1,5 @@
 ﻿using FindMyBook.Models;
+using FindMyBook.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,47 @@ namespace FindMyBook.Controllers
     {
         findMyBookEntities1 db = new findMyBookEntities1();
         // GET: Cart
-        
+
+
         public ActionResult Index()
         {
-            return View();
+            if (Session["CustomerId"] == null)
+            {
+                ViewBag.Message = "Please Login to see your cart items...";
+                return View("Index");
+            }
+            else
+            {
+                int customerId;
+                try
+                {
+                    // Try to safely convert the session value to an integer
+                    customerId = Convert.ToInt32(Session["CustomerId"]);
+                }
+                catch (InvalidCastException)
+                {
+                    // Handle the invalid cast exception if the conversion fails
+                    ViewBag.Message = "Session value for CustomerId is not valid.";
+                    return View("Index");
+                }
+
+                // Fetch cart details for the logged-in user
+                var cartItemsDetail = (from cartItem in db.table_cart
+                                       join book in db.table_book_detail on cartItem.book_id_FK equals book.book_id
+                                       where cartItem.customer_id_FK == customerId
+                                       select new CartViewModel
+                                       {
+                                           CartId = cartItem.cart_id,
+                                           BookId = book.book_id,
+                                           BookName = book.book_name,
+                                           Price = book.book_price,
+                                           BookImage = book.book_image
+                                       }).ToList(); // Fetch all matching records
+
+                return View(cartItemsDetail);
+            }
         }
+
         [HttpGet]
         public ActionResult AddCart()
         {

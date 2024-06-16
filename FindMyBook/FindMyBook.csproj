@@ -221,6 +221,7 @@
     <Content Include="Images\3d-rendering-cartoon-like-boy-reading.jpg" />
     <Content Include="Images\3d-rendering-cartoon-like-girl-reading.jpg" />
     <Content Include="Images\pexels-thought-catalog-317580-904616.jpg" />
+    <Content Include="Images\pngfind.com-cart-png-2727925.png" />
     <Content Include="Models\FindMyBookDbModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>FindMyBookDbModel.edmx</DependentUpon>

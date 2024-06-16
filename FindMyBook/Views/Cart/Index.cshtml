@@ -1,8 +1,84 @@
-﻿
+﻿@model IEnumerable<FindMyBook.ViewModels.CartViewModel>
+
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    if (Session["CustomerId"] == null)
+    {
+        ViewBag.Title = "Cart Items";
+    }
+    else
+    {
+        ViewBag.Title = $"{Session["CustomerName"]}'s Cart Items";
+    }
 }
 
-<h2>Index</h2>
+<div class="p-5">
+    @if (Session["CustomerId"] == null)
+    {
+        <h2 style="margin-top: 250px" class="text-danger text-center font-weight-bold">@ViewBag.Message</h2>
+    }
+    else
+    {
+        if (Model != null && Model.Any())
+        {
+            <h4 class="text-center font-weight-bold" style="color: #0E223B">@Session["CustomerName"]'s Cart Items...</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>S. No</th>
+                        <th>Book Image</th>
+                        <th>Book Name</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                @{
+                    int serialNo = 0;
+                }
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @{
+                                    serialNo++;
+                                }
+                                #@serialNo
+                            </td>
+                            <td>
+                                <img src="@item.BookImage" class="object-fit-cover" alt="@item.BookName" style="width: 100px; height: 100px;" />
+                            </td>
+                            <td>@item.BookName</td>
+                            <td>@item.Price.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-LK"))</td>
+                            <td>
+                                @Html.ActionLink("Confirm", "Index", new { id = item.CartId }, new { @class = "btn btn-success" }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.BookId }, new { @class = "btn btn-danger" })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <img src="~/Images/pngfind.com-cart-png-2727925.png" class="object-fit-cover mt-5" style="width:200px; height: 200px" />
+                <p class="text-center font-weight-bold fs-2" style="color: #0E223B">Your cart is empty.</p>
+                @*@Html.ActionLink("Explore books", "FindBooks", "Book", new { @class = "btn text-light fw-semibold", style = "background-color: #0E223B" })*@
+                <button id="btnNavigateToFindBook" class="btn text-light fw-semibold" style="background-color: #0E223B">Tap to Explore Books</button>
+            </div>
 
+        }
+    }
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        const btnNavigateToFindBookEl = document.querySelector("#btnNavigateToFindBook")
+
+        btnNavigateToFindBookEl.addEventListener("click", () => {
+            window.location.href = "/Book/FindBooks";
+        })
+    })
+</script>
