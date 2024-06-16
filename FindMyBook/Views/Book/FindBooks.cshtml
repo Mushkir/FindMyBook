@@ -92,7 +92,6 @@
                         icon: "info"
                     }).then((result) => {
                         if (result.isConfirmed == true) {
-
                             window.location.href = '@Url.Action("Login", "Home")';
                         }
                     });
@@ -102,25 +101,27 @@
                     const bookId = arrayOfHrefEl[1];
 
                     $.ajax({
-                        url: '/',
+                        url: '/Cart/AddCart',
                         type: 'POST',
                         data: { customerId: customerId, bookId: bookId },
                         success: function (response) {
 
                             console.log(response);
+                            const { status } = response
+                            if (status == "200") {
+                                Swal.fire({
+                                    title: "Book added!",
+                                    text: "Dear Customer! Currently your item added on cart!",
+                                    icon: "success"
+                                });
+                            }
 
                         }, error: function (xhr, status, error) {
                             // Handle error if needed
                             console.error("Error occured: " + xhr.responseText);
                         }
-
                     })
-
-
                 }
-
-
-
             })
         });
     </script>

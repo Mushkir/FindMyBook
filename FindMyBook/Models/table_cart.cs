@@ -15,7 +15,7 @@ namespace FindMyBook.Models
     public partial class table_cart
     {
         public int cart_id { get; set; }
-        public int book_id_FK { get; set; }
         public int customer_id_FK { get; set; }
+        public int book_id_FK { get; set; }
     }
 }

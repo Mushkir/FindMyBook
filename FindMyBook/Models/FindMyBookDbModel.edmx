@@ -51,17 +51,13 @@
           <Property Name="book_status_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="book_status" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'findMyBook.dbo.table_cart' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="table_cart">
           <Key>
             <PropertyRef Name="cart_id" />
-            <PropertyRef Name="book_id_FK" />
-            <PropertyRef Name="customer_id_FK" />
           </Key>
           <Property Name="cart_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="book_id_FK" Type="int" Nullable="false" />
           <Property Name="customer_id_FK" Type="int" Nullable="false" />
+          <Property Name="book_id_FK" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="table_customer">
           <Key>
@@ -161,6 +157,7 @@ warning 6002: The table/view 'findMyBook.dbo.table_cart' does not have a primary
           <EntitySet Name="table_author" EntityType="Self.table_author" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="table_book_detail" EntityType="Self.table_book_detail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="table_book_status" EntityType="Self.table_book_status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="table_cart" EntityType="Self.table_cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="table_customer" EntityType="Self.table_customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="table_customer_book_order_details" EntityType="Self.table_customer_book_order_details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="table_customer_order_book" EntityType="Self.table_customer_order_book" Schema="dbo" store:Type="Tables" />
@@ -170,13 +167,6 @@ warning 6002: The table/view 'findMyBook.dbo.table_cart' does not have a primary
           <EntitySet Name="table_payment_status" EntityType="Self.table_payment_status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="table_publisher" EntityType="Self.table_publisher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tablePayment" EntityType="Self.tablePayment" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="table_cart" EntityType="Self.table_cart" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[table_cart].[cart_id] AS [cart_id], 
-[table_cart].[book_id_FK] AS [book_id_FK], 
-[table_cart].[customer_id_FK] AS [customer_id_FK]
-FROM [dbo].[table_cart] AS [table_cart]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -228,6 +218,14 @@ FROM [dbo].[table_cart] AS [table_cart]</DefiningQuery>
           </Key>
           <Property Name="book_status_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="book_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="table_cart">
+          <Key>
+            <PropertyRef Name="cart_id" />
+          </Key>
+          <Property Name="cart_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_id_FK" Type="Int32" Nullable="false" />
+          <Property Name="book_id_FK" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="table_customer">
           <Key>
@@ -322,21 +320,12 @@ FROM [dbo].[table_cart] AS [table_cart]</DefiningQuery>
           <Property Name="payment_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="payment_status_id_FK" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="table_cart">
-          <Key>
-            <PropertyRef Name="cart_id" />
-            <PropertyRef Name="book_id_FK" />
-            <PropertyRef Name="customer_id_FK" />
-          </Key>
-          <Property Name="cart_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="book_id_FK" Type="Int32" Nullable="false" />
-          <Property Name="customer_id_FK" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityContainer Name="findMyBookEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="table_admin" EntityType="Self.table_admin" />
           <EntitySet Name="table_author" EntityType="Self.table_author" />
           <EntitySet Name="table_book_detail" EntityType="Self.table_book_detail" />
           <EntitySet Name="table_book_status" EntityType="Self.table_book_status" />
+          <EntitySet Name="table_cart" EntityType="Self.table_cart" />
           <EntitySet Name="table_customer" EntityType="Self.table_customer" />
           <EntitySet Name="table_customer_book_order_details" EntityType="Self.table_customer_book_order_details" />
           <EntitySet Name="table_customer_order_book" EntityType="Self.table_customer_order_book" />
@@ -346,7 +335,6 @@ FROM [dbo].[table_cart] AS [table_cart]</DefiningQuery>
           <EntitySet Name="table_payment_status" EntityType="Self.table_payment_status" />
           <EntitySet Name="table_publisher" EntityType="Self.table_publisher" />
           <EntitySet Name="tablePayments" EntityType="Self.tablePayment" />
-          <EntitySet Name="table_cart" EntityType="Self.table_cart" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -401,6 +389,15 @@ FROM [dbo].[table_cart] AS [table_cart]</DefiningQuery>
               <MappingFragment StoreEntitySet="table_book_status">
                 <ScalarProperty Name="book_status_id" ColumnName="book_status_id" />
                 <ScalarProperty Name="book_status" ColumnName="book_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="table_cart">
+            <EntityTypeMapping TypeName="findMyBookModel.table_cart">
+              <MappingFragment StoreEntitySet="table_cart">
+                <ScalarProperty Name="cart_id" ColumnName="cart_id" />
+                <ScalarProperty Name="customer_id_FK" ColumnName="customer_id_FK" />
+                <ScalarProperty Name="book_id_FK" ColumnName="book_id_FK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -503,15 +500,6 @@ FROM [dbo].[table_cart] AS [table_cart]</DefiningQuery>
                 <ScalarProperty Name="payment_method_id_FK" ColumnName="payment_method_id_FK" />
                 <ScalarProperty Name="payment_date" ColumnName="payment_date" />
                 <ScalarProperty Name="payment_status_id_FK" ColumnName="payment_status_id_FK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="table_cart">
-            <EntityTypeMapping TypeName="findMyBookModel.table_cart">
-              <MappingFragment StoreEntitySet="table_cart">
-                <ScalarProperty Name="cart_id" ColumnName="cart_id" />
-                <ScalarProperty Name="book_id_FK" ColumnName="book_id_FK" />
-                <ScalarProperty Name="customer_id_FK" ColumnName="customer_id_FK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

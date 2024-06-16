@@ -29,6 +29,7 @@ namespace FindMyBook.Models
         public DbSet<table_author> table_author { get; set; }
         public DbSet<table_book_detail> table_book_detail { get; set; }
         public DbSet<table_book_status> table_book_status { get; set; }
+        public DbSet<table_cart> table_cart { get; set; }
         public DbSet<table_customer> table_customer { get; set; }
         public DbSet<table_customer_book_order_details> table_customer_book_order_details { get; set; }
         public DbSet<table_customer_order_book> table_customer_order_book { get; set; }
@@ -38,6 +39,5 @@ namespace FindMyBook.Models
         public DbSet<table_payment_status> table_payment_status { get; set; }
         public DbSet<table_publisher> table_publisher { get; set; }
         public DbSet<tablePayment> tablePayments { get; set; }
-        public DbSet<table_cart> table_cart { get; set; }
     }
 }

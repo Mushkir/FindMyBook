@@ -1,7 +1,7 @@
 ﻿@model FindMyBook.ViewModels.BookViewModel
 
 @{
-    ViewBag.Title = "Book Details";
+    ViewBag.Title = $"{Model.Title}\'s Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,7 +11,7 @@
             <img src="@Url.Content(Model.BookImage)" class="img-fluid" alt="@Model.Title" />
         </div>
         <div class="col-md-8">
-            <h2>@Model.Title</h2>
+            <h2 class="font-weight-bold">@Model.Title</h2>
             <p><strong>Author:</strong> @Model.AuthorName</p>
             <p><strong>ISBN:</strong> @Model.ISBN</p>
             <p><strong>Language:</strong> @Model.BookLanguage</p>
@@ -21,6 +21,37 @@
             <p><strong>Rating:</strong> @Model.Rating</p>
             <p><strong>Publisher:</strong> @Model.PublisherName</p>
             <p><strong>Status:</strong> @Model.Status</p>
+            <p><strong>Order status:</strong>On process</p>
+
+            @Html.ActionLink("Back to page", "FindBooks", "Book", htmlAttributes: new { @class = "btn btn-success" })
+            @Html.ActionLink("Click to confirm order", "Index", "Book", htmlAttributes: new { @class = "btn btn-primary", @id = "confirmBTn" })
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $("body").on("click", "#confirmBTn", function (e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "Dear Mohamed! Are you sure to confirm order?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, Cofirm the order!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: "Order Confirmed!",
+                        text: "Dear Mohamed! Your order has been confirmed.",
+                        icon: "success"
+                    });
+                }
+            });
+        })
+    })
+</script>

@@ -125,6 +125,7 @@ namespace FindMyBook.Controllers
         // Find Books
         public ActionResult FindBooks()
         {
+
                 var bookDetails = (from book in db.table_book_detail
                                    join author in db.table_author on book.author_id_FK equals author.author_id
                                    join publisher in db.table_publisher on book.publisher_id_FK equals publisher.publisher_id
@@ -146,7 +147,6 @@ namespace FindMyBook.Controllers
                                    }).ToList();
             return View(bookDetails);
         }
-
 
         public ActionResult Details(int id)
         {
