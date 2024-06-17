@@ -82,6 +82,7 @@
                 data: { customerId: customerId },
                 dataType: 'json',
                 success: function (response) {
+                    // console.log(response)
                     const countOrdersEl = document.querySelector("#countOrders");
                     const { count } = response;
                     countOrdersEl.textContent = count;

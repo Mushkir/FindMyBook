@@ -84,7 +84,52 @@ namespace FindMyBook.Controllers
 
             // Return the count as JSON to the frontend
             return Json(new { count = countedItem });
-            
+
         }
+
+        public ActionResult DeleteCart(int id)
+        {
+            // Fetch the cart item and associated book details
+            var bookDetail = (from cartItem in db.table_cart
+                              join book in db.table_book_detail on cartItem.book_id_FK equals book.book_id
+                              where cartItem.cart_id == id
+                              select new CartViewModel
+                              {
+                                  CartId = cartItem.cart_id,
+                                  BookId = book.book_id,
+                                  BookName = book.book_name,
+                                  Price = book.book_price,
+                                  BookImage = book.book_image,
+                                  IsbnNumber = book.book_isbn_number,
+                                  PublishedDate = book.book_published_date,
+                                  Language = book.book_language,
+                                  Pages = book.pages,
+
+
+                              }).FirstOrDefault();
+
+            if (bookDetail == null)
+            {
+                return HttpNotFound("Cart item not found.");
+            }
+
+            return View(bookDetail);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteCartConfirmed(int id)
+        {
+            var cartItem = db.table_cart.SingleOrDefault(c => c.cart_id == id);
+            if (cartItem != null)
+            {
+                db.table_cart.Remove(cartItem);
+                db.SaveChanges();
+                return Json(new { success = true, message = "Cart item deleted successfully." }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { success = false, message = "Failed to delete cart item." }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

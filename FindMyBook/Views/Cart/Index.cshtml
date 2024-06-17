@@ -52,7 +52,7 @@
                             <td>@item.Price.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-LK"))</td>
                             <td>
                                 @Html.ActionLink("Confirm", "Index", new { id = item.CartId }, new { @class = "btn btn-success" }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.BookId }, new { @class = "btn btn-danger" })
+                                @Html.ActionLink("Delete", "DeleteCart", "Cart", new { id = item.CartId }, new { @class = "btn btn-danger", @id = "btnDeleteCartItem" })
                             </td>
                         </tr>
                     }
@@ -75,10 +75,29 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
-        const btnNavigateToFindBookEl = document.querySelector("#btnNavigateToFindBook")
+        const customerId = '@Session["CustomerId"]' !== 'null' ? '@Session["CustomerId"]' : null;
+        // JQuery for show explore button and navigate to Find Books page, if the cart items is equlas to 0.
+        if (customerId) {
+            $.ajax({
+                type: 'POST',
+                url: '/Cart/CountCartItems',
+                data: { customerId: customerId },
+                success: function (res) {
+                    // console.log(response);
+                    const { count } = res;
+                    if (count == 0) {
 
-        btnNavigateToFindBookEl.addEventListener("click", () => {
-            window.location.href = "/Book/FindBooks";
-        })
+                        const btnNavigateToFindBookEl = document.querySelector("#btnNavigateToFindBook")
+                        btnNavigateToFindBookEl.addEventListener("click", () => {
+                            window.location.href = "/Book/FindBooks";
+                        })
+                    }
+                }, error: function (xhr, status, error) {
+                    console.error("Error fetching cart count:", error);
+                }
+            })
+        } else {
+            console.log(0);
+        }
     })
 </script>
