@@ -1,91 +1,144 @@
 ﻿@model FindMyBook.ViewModels.CartViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = $"{Model.BookName} Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<div class="p-5">
+    <h2 class="font-weight-bold">@Model.BookName</h2>
 
-<div>
-    <h4>CartViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CartId)
-        </dt>
+    <div class="card mt-4">
+        <div class="card-header text-white" style="background-color: #0E223B">
+            <h4>Are you sure you want to confirm this item?</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="p-3">
+                    <img src="@Url.Content($"~/BookImages/{Model.BookImage}")" class="rounded-2 img-fluid object-fit-cover" style="height: 350px" alt="@Model.BookName" />
 
-        <dd>
-            @Html.DisplayFor(model => model.CartId)
-        </dd>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BookId)
-        </dt>
+            <div class="col-md-9">
+                <dl class="dl-horizontal p-3">
+                    <dt>Book Name</dt>
+                    <dd> @Html.DisplayFor(model => model.BookName) </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.BookId)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BookName)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Price)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.BookName)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
+                    <dt>
+                        ISBN Number
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BookImage)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.IsbnNumber)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.BookImage)
-        </dd>
+                    <dt>
+                        Published Date
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.IsbnNumber)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.PublishedDate)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.IsbnNumber)
-        </dd>
+                    <dt>
+                        Language
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.PublishedDate)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Language)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.PublishedDate)
-        </dd>
+                    <dt>
+                        Pages
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Language)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Pages)
+                    </dd>
+                </dl>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Language)
-        </dd>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Pages)
-        </dt>
+        <input type="hidden" id="CartId" value="@Model.CartId" />
+        <input type="hidden" id="Price" value="@Model.Price" />
 
-        <dd>
-            @Html.DisplayFor(model => model.Pages)
-        </dd>
+        <p class="px-2">
+            @Html.ActionLink("Confirm to order", "Create", new { id = Model.CartId }, new { @class = "btn btn-success me-3 btnConfirmOrder" })
+            @Html.ActionLink("Back to List", "Index", "Cart", new { @class = "btn btn-danger btnBackToIndex" })
+        </p>
 
-    </dl>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $("body").on("click", ".btnBackToIndex", function (e) {
+
+            e.preventDefault();
+
+            window.location.href = "/Cart/Index";
+        })
+
+
+        $("body").on("click", ".btnConfirmOrder", function (e) {
+            e.preventDefault();
+
+            const cartId = $("#CartId").val();
+            const price = $("#Price").val();
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Create", "BookOrder")',
+                data: { CartId: cartId, Price: price },
+                success: function (response) {
+                    // console.log(response);
+                    const { status, message } = response;
+                    const customerName = '@Session["CustomerName"]';
+
+                    if (status == 404) {
+                        Swal.fire({
+                            title: "!",
+                            text: message,
+                            icon: "error"
+                        });
+                    } else if (status == 200) {
+                        Swal.fire({
+                            title: "Good job!",
+                            text: `Dear ${customerName}! ${message}`,
+                            icon: "success"
+                        }).then((result) => {
+
+                            if (result.isConfirmed == true) {
+                                window.location.href = `/Payment/Index?CartID=${cartId}`;
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Good job!",
+                            text: message,
+                            icon: "error"
+                        });
+                    }
+
+                }, error: function (xhr, status, error) {
+                    alert('Error: ' + error);
+                }
+
+            })
+
+        })
+    })
+</script>

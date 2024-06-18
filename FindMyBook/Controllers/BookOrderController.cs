@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -48,25 +49,54 @@ namespace FindMyBook.Controllers
         }
 
         // GET: BookOrder/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
             return View();
         }
 
         // POST: BookOrder/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public JsonResult Create(int CartId, double Price)
         {
             try
             {
                 // TODO: Add insert logic here
+                var cartItem = db.table_cart.Find(CartId);
+                if (cartItem == null)
+                {
+                    return Json(new { status = 404, message = "Cart item not found." });
+                }
 
-                return RedirectToAction("Index");
+                DateTime orderDate = DateTime.Now;
+                DateTime deliveryDate = orderDate.AddDays(10);
+
+                table_customer_order_book table_Customer_Order_Book = new table_customer_order_book
+                {
+                    customer_id_FK = cartItem.cart_id,
+                    total_price = Price,
+                    order_date = orderDate,
+                    delivery_date = deliveryDate,
+                    order_status_id_FK = 0,
+                    feedback_id_FK = 0,
+                    payment_id_FK = 0
+                };
+
+                db.table_customer_order_book.Add(table_Customer_Order_Book);
+
+                cartItem.confirmation_status = 1;
+                db.Entry(cartItem).State = EntityState.Modified;
+
+                db.SaveChanges();
+                //return RedirectToAction("Index");
+                return Json(new { status = 200, message = "Order confirmed successfully!" });
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                //return View();
+                return Json(new { status = 500, message = ex.Message });
             }
+
+            
         }
 
         // GET: BookOrder/Edit/5
