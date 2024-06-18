@@ -17,5 +17,6 @@ namespace FindMyBook.Models
         public int cart_id { get; set; }
         public int customer_id_FK { get; set; }
         public int book_id_FK { get; set; }
+        public Nullable<int> confirmation_status { get; set; }
     }
 }

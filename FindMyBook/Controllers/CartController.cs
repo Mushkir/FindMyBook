@@ -39,7 +39,7 @@ namespace FindMyBook.Controllers
                 // Fetch cart details for the logged-in user
                 var cartItemsDetail = (from cartItem in db.table_cart
                                        join book in db.table_book_detail on cartItem.book_id_FK equals book.book_id
-                                       where cartItem.customer_id_FK == customerId
+                                       where cartItem.customer_id_FK == customerId && cartItem.confirmation_status == 0
                                        select new CartViewModel
                                        {
                                            CartId = cartItem.cart_id,
@@ -62,13 +62,14 @@ namespace FindMyBook.Controllers
         [HttpPost]
         public ActionResult AddCart(int customerId, int bookId)
         {
+            int status = 0;
             // Assuming table_cart is your entity class for the table_cart table
             var table_Cart = new table_cart
             {
                 customer_id_FK = customerId,
                 book_id_FK = bookId
             };
-
+            table_Cart.confirmation_status = status;
             db.table_cart.Add(table_Cart);
             db.SaveChanges();
 

@@ -58,6 +58,7 @@
           <Property Name="cart_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="customer_id_FK" Type="int" Nullable="false" />
           <Property Name="book_id_FK" Type="int" Nullable="false" />
+          <Property Name="confirmation_status" Type="int" />
         </EntityType>
         <EntityType Name="table_customer">
           <Key>
@@ -226,6 +227,7 @@
           <Property Name="cart_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="customer_id_FK" Type="Int32" Nullable="false" />
           <Property Name="book_id_FK" Type="Int32" Nullable="false" />
+          <Property Name="confirmation_status" Type="Int32" />
         </EntityType>
         <EntityType Name="table_customer">
           <Key>
@@ -398,6 +400,7 @@
                 <ScalarProperty Name="cart_id" ColumnName="cart_id" />
                 <ScalarProperty Name="customer_id_FK" ColumnName="customer_id_FK" />
                 <ScalarProperty Name="book_id_FK" ColumnName="book_id_FK" />
+                <ScalarProperty Name="confirmation_status" ColumnName="confirmation_status" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

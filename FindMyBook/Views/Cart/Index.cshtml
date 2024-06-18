@@ -25,7 +25,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>S. No</th>
+                        <th class="text-center">S. No</th>
                         <th>Book Image</th>
                         <th>Book Name</th>
                         <th>Price</th>
@@ -39,7 +39,7 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>
+                            <td class="text-center">
                                 @{
                                     serialNo++;
                                 }
@@ -51,7 +51,7 @@
                             <td>@item.BookName</td>
                             <td>@item.Price.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("en-LK"))</td>
                             <td>
-                                @Html.ActionLink("Confirm", "Index", new { id = item.CartId }, new { @class = "btn btn-success" }) |
+                                @Html.ActionLink("Confirm", "Details", "BookOrder", new { id = item.CartId }, new { @class = "btn btn-success" })
                                 @Html.ActionLink("Delete", "DeleteCart", "Cart", new { id = item.CartId }, new { @class = "btn btn-danger", @id = "btnDeleteCartItem" })
                             </td>
                         </tr>

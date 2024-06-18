@@ -17,7 +17,7 @@ namespace FindMyBook.Models
         public int order_id { get; set; }
         public System.DateTime order_date { get; set; }
         public System.DateTime delivery_date { get; set; }
-        public int customer_id_FK { get; set; }
+        public int customer_id_FK { get; set; } // Assume as customer_id_FK equals to cart_id
         public double total_price { get; set; }
         public int order_status_id_FK { get; set; }
         public int feedback_id_FK { get; set; }

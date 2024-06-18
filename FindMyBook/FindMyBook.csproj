@@ -129,6 +129,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\BookOrderController.cs" />
     <Compile Include="Controllers\BookStatusController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -301,6 +302,8 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\DeleteCart.cshtml" />
     <Content Include="Views\Cart\DeleteCartConfirmed.cshtml" />
+    <Content Include="Views\BookOrder\Create.cshtml" />
+    <Content Include="Views\BookOrder\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
