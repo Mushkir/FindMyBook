@@ -1,0 +1,96 @@
+﻿@model FindMyBook.Models.table_feedback
+
+@{
+    ViewBag.Title = "Feedback";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="mt-5 mx-auto" style="width: 800px">
+    <h2 class="font-weight-bold text-center" style="color: #0E223B">Dear valued customer! Your feedback is our valuable asset.</h2>
+
+    <div>
+        <form id="feedbackForm">
+            @Html.AntiForgeryToken()
+            <input type="hidden" id="orderId" name="orderId" value="@Request.QueryString["orderId"]" />
+
+            <div class="form-horizontal">
+                <small class="text-center d-block">It will help us to improve our service in future...</small>
+                <hr />
+
+                <div class="p-5 rounded-3 mb-5" style="background-color: #0E223B">
+                    <div class="form-group">
+                        <div class="d-flex">
+                            @Html.LabelFor(model => model.feedback, htmlAttributes: new { @class = "form-label text-light fw-semibold" })
+                            <span class="text-danger">*</span>
+                        </div>
+                        <div>
+                            @Html.TextAreaFor(model => model.feedback, new { @class = "form-control shadow-none", rows = "10", @placeholder = "Enter your opinions..." })
+                            @Html.ValidationMessageFor(model => model.feedback, "", new { @class = "text-danger d-block mt-2" })
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <div class="col-md-offset-2">
+                            <button type="submit" class="btn btn-light me-3" style="width: 100px">Save</button>
+                            <button type="button" id="btnSkip" class="btn border-1 border-light text-light me-3" style="width: 100px">Skip</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            const btnSkipEl = document.querySelector("#btnSkip");
+            btnSkipEl.addEventListener("click", () => {
+                window.location.href = "/Home/Index";
+            });
+
+            $("#feedbackForm").submit(function (e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                const feedbackData = {
+                    orderId: $("#orderId").val(),
+                    feedback: $("#feedback").val(),
+                    __RequestVerificationToken: $("input[name='__RequestVerificationToken']").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("SaveFeedback", "Feedback")",
+                    data: feedbackData,
+                    success: function (response) {
+                        // console.log(response)
+                        const { status, message } = response;
+                        if (status == 200) {
+                            Swal.fire({
+                                title: "Success!",
+                                text: `Dear customer! your ${message}`,
+                                icon: "success"
+                            }).then((result) => {
+                                if (result.isConfirmed == true) {
+                                    window.location.href = "Home/Index"
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Technical Error!",
+                                text: "A technical error occured! Please contact your IT support.",
+                                icon: "error"
+                            });
+                        }
+                    },
+                    error: function () {
+                        alert("An error occurred while saving feedback. Please try again later.");
+                    }
+                });
+            });
+        });
+    </script>
+}
