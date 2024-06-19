@@ -98,6 +98,10 @@
 
             const cartId = $("#CartId").val();
             const price = $("#Price").val();
+            //console.log(typeof cartId)
+            //const id = parseInt(cartId)
+            //console.log(id);
+
 
             $.ajax({
                 type: 'POST',
@@ -116,13 +120,12 @@
                         });
                     } else if (status == 200) {
                         Swal.fire({
-                            title: "Good job!",
-                            text: `Dear ${customerName}! ${message}`,
+                            title: "Success!",
+                            text: `Dear ${customerName}, ${message}`,
                             icon: "success"
                         }).then((result) => {
-
-                            if (result.isConfirmed == true) {
-                                window.location.href = `/Payment/Index?CartID=${cartId}`;
+                            if (result.isConfirmed) {
+                                window.location.href = `/Payment/Checkout?cartId=${cartId}`;
                             }
                         });
                     } else {
