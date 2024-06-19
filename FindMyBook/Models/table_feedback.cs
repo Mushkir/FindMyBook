@@ -11,10 +11,14 @@ namespace FindMyBook.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class table_feedback
     {
         public int feedback_id { get; set; }
+
+        [Required (ErrorMessage = "Feedback field ca not be empty.")]
+        [Display(Name = "Enter your opinion")]
         public string feedback { get; set; }
         public int customer_id_FK { get; set; }
         public int book_id_FK { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -9,6 +10,7 @@ using FindMyBook.ViewModels;
 using Stripe;
 using Stripe.BillingPortal;
 using Stripe.Checkout;
+using Stripe.Issuing;
 
 namespace FindMyBook.Controllers
 {
@@ -131,18 +133,18 @@ namespace FindMyBook.Controllers
                         PriceData = new SessionLineItemPriceDataOptions
                         {
                             UnitAmount = Convert.ToInt32(amountInStringValue)*100,
-                            Currency = "inr",
+                            Currency = "lkr",
                             ProductData = new SessionLineItemPriceDataProductDataOptions
                             {
-                                Name = "Tshirt",
+                                Name = bookDetail.BookName,
                             }
                         },
                         Quantity = 1,
                     }
                 },
                 Mode = "payment",
-                SuccessUrl = "https://localhost:44390/Cart/Index",
-                CancelUrl = "https://localhost:44390/Book/FindBooks",
+                SuccessUrl = $"https://localhost:44390/Payment/ConfirmPayment?cartId={cartId}",
+                CancelUrl = "https://localhost:44390/Cart/Index",
             };
 
             var service = new Stripe.Checkout.SessionService();
@@ -150,7 +152,38 @@ namespace FindMyBook.Controllers
 
             Response.Headers.Add("Location", session.Url);
             return new HttpStatusCodeResult(303);
+        }
 
+        [HttpGet]
+        public ActionResult ConfirmPayment(int cartId)
+        {
+            if (cartId <= 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Invalid cartId");
+            }
+
+            var order = db.table_customer_order_book
+                 .Where(o => o.customer_id_FK == cartId)
+                 .Select(o => new { o.order_id, o.customer_id_FK })
+                 .FirstOrDefault();
+
+            if (order == null)
+            {
+                return HttpNotFound("Order not found for the provided cartId");
+            }
+
+            var orderId = order.order_id;
+
+            var orderedBookDetail = db.table_customer_order_book.Find(orderId);
+
+            orderedBookDetail.payment_id_FK = 1;
+            db.Entry(orderedBookDetail).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Feedback", new { orderId = orderId});
+            //return View(order);
         }
     }
+
+   
 }
