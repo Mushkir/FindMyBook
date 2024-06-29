@@ -97,6 +97,27 @@ namespace FindMyBook.Controllers
         // Dashboard Function
         public ActionResult Dashboard()
         {
+            // Total Books
+            ViewBag.TotalBooks = db.table_book_detail.Count();
+
+            // Total Customers
+            ViewBag.TotalCustomers = db.table_customer.Count();
+
+            // Total Publishers
+            ViewBag.TotalPublishers = db.table_publisher.Count();
+
+            // Total Orders
+            ViewBag.TotalOrders = db.table_customer_order_book.Count();
+
+            // Total Payment
+            ViewBag.TotalPayments = db.table_customer_order_book.Count();
+
+            // Pending Orders
+            ViewBag.TotalPendingOrders = db.table_cart.Count(countPendingOrders => countPendingOrders.confirmation_status == 0);
+
+            // Pending Payments
+            ViewBag.TotalPendingPayments = db.table_customer_order_book.Count(countPendingPayments => countPendingPayments.payment_id_FK == 0);
+
             return View();
         }
 

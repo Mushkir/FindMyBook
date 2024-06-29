@@ -302,7 +302,6 @@
     <Content Include="Views\Admin\SignUp.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_Admin_Dashboard_Layout.cshtml" />
-    <Content Include="Views\Admin\Dashboard.cshtml" />
     <Content Include="Views\Author\AddAuthor.cshtml" />
     <Content Include="Views\Author\ManageAuthors.cshtml" />
     <Content Include="Views\Author\AuthorDetails.cshtml" />
@@ -328,6 +327,7 @@
     <Content Include="Views\Payment\Checkout.cshtml" />
     <Content Include="Views\Payment\ConfirmPayment.cshtml" />
     <Content Include="Views\Feedback\Index.cshtml" />
+    <Content Include="Views\Admin\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
