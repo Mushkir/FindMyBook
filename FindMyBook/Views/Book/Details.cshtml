@@ -8,7 +8,7 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-4">
-            <img src="@Url.Content(Model.BookImage)" class="img-fluid" alt="@Model.Title" />
+            <img src="~/BookImages/@Url.Content(Model.BookImage)" class="img-fluid rounded-3" alt="@Model.Title" />
         </div>
         <div class="col-md-8">
             <h2 class="font-weight-bold">@Model.Title</h2>
@@ -21,15 +21,14 @@
             <p><strong>Rating:</strong> @Model.Rating</p>
             <p><strong>Publisher:</strong> @Model.PublisherName</p>
             <p><strong>Status:</strong> @Model.Status</p>
-            <p><strong>Order status:</strong>On process</p>
 
             @Html.ActionLink("Back to page", "FindBooks", "Book", htmlAttributes: new { @class = "btn btn-success" })
-            @Html.ActionLink("Click to confirm order", "Index", "Book", htmlAttributes: new { @class = "btn btn-primary", @id = "confirmBTn" })
+            @*@Html.ActionLink("Click to confirm order", "Index", "Book", htmlAttributes: new { @class = "btn btn-primary", @id = "confirmBTn" })*@
         </div>
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+@*<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
         $("body").on("click", "#confirmBTn", function (e) {
@@ -54,4 +53,4 @@
             });
         })
     })
-</script>
+</script>*@

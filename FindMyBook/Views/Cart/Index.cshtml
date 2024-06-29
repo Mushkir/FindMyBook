@@ -75,29 +75,33 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
-        const customerId = '@Session["CustomerId"]' !== 'null' ? '@Session["CustomerId"]' : null;
-        // JQuery for show explore button and navigate to Find Books page, if the cart items is equlas to 0.
-        if (customerId) {
-            $.ajax({
-                type: 'POST',
-                url: '/Cart/CountCartItems',
-                data: { customerId: customerId },
-                success: function (res) {
-                    // console.log(response);
-                    const { count } = res;
-                    if (count == 0) {
 
-                        const btnNavigateToFindBookEl = document.querySelector("#btnNavigateToFindBook")
-                        btnNavigateToFindBookEl.addEventListener("click", () => {
-                            window.location.href = "/Book/FindBooks";
-                        })
+        countCartItems();
+
+        function countCartItems() {
+            const customerId = '@Session["CustomerId"]' !== 'null' ? '@Session["CustomerId"]' : null;
+            // JQuery for show explore button and navigate to Find Books page, if the cart items is equlas to 0.
+            if (customerId) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Cart/CountCartItems',
+                    data: { customerId: customerId },
+                    success: function (res) {
+                        //console.log(res);
+                        const { count } = res;
+                        if (count == 0) {
+                            const btnNavigateToFindBookEl = document.querySelector("#btnNavigateToFindBook")
+                            btnNavigateToFindBookEl.addEventListener("click", () => {
+                                window.location.href = "/Book/FindBooks";
+                            })
+                        }
+                    }, error: function (xhr, status, error) {
+                        console.error("Error fetching cart count:", error);
                     }
-                }, error: function (xhr, status, error) {
-                    console.error("Error fetching cart count:", error);
-                }
-            })
-        } else {
-            console.log(0);
+                })
+            } else {
+                console.log(0);
+            }
         }
     })
 </script>

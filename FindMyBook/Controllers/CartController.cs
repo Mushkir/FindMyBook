@@ -81,7 +81,7 @@ namespace FindMyBook.Controllers
         public ActionResult CountCartItems(int customerId)
         {
             // Count the number of cart items for the given customer ID
-            var countedItem = db.table_cart.Count(a => a.customer_id_FK == customerId);
+            var countedItem = db.table_cart.Count(a => a.customer_id_FK == customerId && a.confirmation_status == 0);
 
             // Return the count as JSON to the frontend
             return Json(new { count = countedItem });

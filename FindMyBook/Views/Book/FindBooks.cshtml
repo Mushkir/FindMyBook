@@ -113,6 +113,11 @@
                                     title: "Book added!",
                                     text: "Dear Customer! Currently your item added on cart!",
                                     icon: "success"
+                                }).then((result) => {
+                                    //console.log(result)
+                                    if (result.isConfirmed == true) {
+                                        location.reload();
+                                    }
                                 });
                             }
 
