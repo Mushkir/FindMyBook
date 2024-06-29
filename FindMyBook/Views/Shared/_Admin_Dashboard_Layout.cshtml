@@ -136,27 +136,12 @@
                         </ul>
                     </li>
 
-                    @* Customers *@
-                    <li class="nav-item dropdown px-4" id="customer-menu">
-                        <a class="nav-link dropdown-toggle text-light" id="customer-header" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    @* Orders *@
+                    <li class="nav-item text-light px-4 d-flex align-items-center" id="order-menu">
+                        <div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M4 22V6h4q0-1.65 1.175-2.825T12 2t2.825 1.175T16 6h4v16zm6-16h4q0-.825-.587-1.412T12 4t-1.412.588T10 6m-2 5h2V8H8zm6 0h2V8h-2z" /></svg>
-                            Orders
-                        </a>
-                        <ul class="dropdown-menu" style="background-color: #0E223B">
-                            @* Add Customers *@
-                            <li id="add-customer-menu" class="nav-item px-1 text-light d-flex align-items-center d-flex align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M7.5 6.5C7.5 8.981 9.519 11 12 11s4.5-2.019 4.5-4.5S14.481 2 12 2S7.5 4.019 7.5 6.5M20 21h1v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1z" /></svg>
-                                @Html.ActionLink("Add Customer", "AddCustomer", "Admin", new { area = "" }, new { @class = "nav-link text-light", @id = "add-customer-tag" })
-                            </li>
-
-
-                            <li class="nav-item px-2 text-light d-flex align-items-center" id="manage-book-menu">
-                                <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M7.5 22q-1.475 0-2.488-1.012T4 18.5v-13q0-1.45 1.013-2.475T7.5 2H20v15q-.65 0-1.075.438T18.5 18.5q0 .65.425 1.075T20 20v2zm1.225-9H9.95l.625-1.775H13.4L14.025 13h1.225L12.6 6h-1.25zm2.2-2.8l1.025-2.9h.075l1.025 2.9zM7.5 20h9.325q-.15-.35-.237-.712T16.5 18.5q0-.4.075-.775t.25-.725H7.5q-.65 0-1.075.438T6 18.5q0 .65.425 1.075T7.5 20" /></svg>
-                                </div>
-                                @Html.ActionLink("Manage Books", "ManageBooks", "Book", new { area = "" }, new { @class = "nav-link text-light" })
-                            </li>
-                        </ul>
+                        </div>
+                        @Html.ActionLink("Orders", "ShowConfirmedOrderBook", "BookOrder", new { area = "" }, new { @class = "nav-link text-light", @id = "order-menu-tag" })
                     </li>
 
                     @* Publishers *@
@@ -321,6 +306,12 @@
 
         dropDownActiveMenu(bookHeaderEl, bookMenuEl, manageBookMenuEl, manageBookTagEl);
 
+    } else if (PATH_URL == `${PATH_ORIGIN}/BookOrder/ShowConfirmedOrderBook`) {
+
+        const orderMenuEl = document.querySelector("#order-menu");
+        const orderMenuTagEl = document.querySelector("#order-menu-tag")
+
+        activeMenu(orderMenuEl, orderMenuTagEl);
     }
 </script>
 

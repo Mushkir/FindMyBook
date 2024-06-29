@@ -142,5 +142,41 @@ namespace FindMyBook.Controllers
                 return View();
             }
         }
+
+
+
+        // Get ordered book detail
+        public ActionResult ShowConfirmedOrderBook()
+        {
+            var confirmedBookInfo = (from customerOrderedBook in db.table_customer_order_book
+                                     join cartTable in db.table_cart on customerOrderedBook.customer_id_FK equals cartTable.cart_id
+                                     join customer in db.table_customer on cartTable.customer_id_FK equals customer.customer_id
+                                     join book in db.table_book_detail on cartTable.book_id_FK equals book.book_id
+                                     join author in db.table_author on book.author_id_FK equals author.author_id
+                                     join publisher in db.table_publisher on book.publisher_id_FK equals publisher.publisher_id
+                                     where customerOrderedBook.payment_id_FK == 1
+                                     select new BookViewModel
+                                     {
+
+                                         BookId = book.book_id,
+                                         Title = book.book_name,
+                                         BookImage = book.book_image,
+                                         CustomerName = customer.customer_first_name + " " + customer.customer_last_name,
+                                         Price = book.book_price,
+                                         PublisherName = publisher.publisher_name
+
+                                         
+                                     }).ToList();
+
+            if (confirmedBookInfo == null)
+            {
+                return HttpNotFound("Item not found.");
+            }
+
+
+
+            return View(confirmedBookInfo);
+            //return Json(new { data = confirmedBookInfo }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

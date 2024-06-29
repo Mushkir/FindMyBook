@@ -328,6 +328,7 @@
     <Content Include="Views\Payment\ConfirmPayment.cshtml" />
     <Content Include="Views\Feedback\Index.cshtml" />
     <Content Include="Views\Admin\Dashboard.cshtml" />
+    <Content Include="Views\BookOrder\ShowConfirmedOrderBook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

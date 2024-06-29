@@ -1,0 +1,84 @@
+﻿@model IEnumerable<FindMyBook.ViewModels.BookViewModel>
+
+@{
+    ViewBag.Title = "ShowConfirmedOrderBook";
+    Layout = "~/Views/Shared/_Admin_Dashboard_Layout.cshtml";
+}
+
+<h4 class="text-center my-3">Confirmed Book Order Details...</h4>
+
+<table class="table table-striped table-hover table-bordered mb-4" style="border-color: #0E223B">
+    <tr style="background-color: #0E223B">
+        <th class="text-center text-light">
+            S.No
+        </th>
+        <th class="text-center text-light">
+            Book ID
+            @*@Html.DisplayNameFor(model => model.BookId)*@
+        </th>
+        <th class="text-center text-light">
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+
+        <th class="text-center text-light">
+            Publisher Name
+        </th>
+
+        <th class="text-center text-light">
+            Book Image
+        </th>
+
+        <th class="text-center text-light">
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+
+
+        <th class="text-center text-light">
+            Customer Name
+        </th>
+
+        <th class="text-center text-light">
+            Payment Status
+        </th>
+    </tr>
+    @{
+        int sNo = 0;
+    }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="text-center">
+                @{
+                    sNo++;
+                }
+                #@sNo
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.BookId)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.PublisherName)
+            </td>
+
+            <td class="text-center">
+                <img src="@Url.Content(item.BookImage)" class="object-fit-cover d-flex justify-content-center" alt="@item.Title" width="100" height="150" />
+            </td>
+
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+
+            <td class="text-center">
+                Paid
+            </td>
+        </tr>
+    }
+
+</table>

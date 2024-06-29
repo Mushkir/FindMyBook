@@ -118,6 +118,12 @@ namespace FindMyBook.Controllers
             // Pending Payments
             ViewBag.TotalPendingPayments = db.table_customer_order_book.Count(countPendingPayments => countPendingPayments.payment_id_FK == 0);
 
+            // Total Authors
+            ViewBag.TotalAuthors = db.table_author.Count();
+
+            ViewBag.TotalEarnings = db.table_customer_order_book.Where(order => order.payment_id_FK == 1)
+                .Sum(order => (double?)order.total_price) ?? 0;
+
             return View();
         }
 

@@ -18,6 +18,8 @@ namespace FindMyBook.ViewModels
         public string BookLanguage { get; set; }
         public string Rating { get; set; }
         public int Pages { get; set; }
+
+        public string CustomerName { get; set; }
         public System.DateTime PublishedDate { get; set; }
     }
 }
