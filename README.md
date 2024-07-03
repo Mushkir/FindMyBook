@@ -39,28 +39,40 @@ A comprehensive E-Book web-based application has been developed using ASP.NET wi
 #### Homepage
 <a href="https://ibb.co/gvzgkJR"><img src="https://i.ibb.co/8z68197/screencapture-localhost-44390-2024-07-03-14-36-33.png" alt="screencapture-localhost-44390-2024-07-03-14-36-33" border="0"></a>
 
+#### Find Books page
 <a href="https://ibb.co/WWMTcPY"><img src="https://i.ibb.co/0j6wfFd/screencapture-localhost-44390-Book-Find-Books-2024-07-03-14-36-59.png" alt="screencapture-localhost-44390-Book-Find-Books-2024-07-03-14-36-59" border="0"></a>
 
+#### View Book Details page
 <a href="https://ibb.co/zHNVyFT"><img src="https://i.ibb.co/1JbGDMt/screencapture-localhost-44390-Book-Details-1-2024-07-03-14-48-28.png" alt="screencapture-localhost-44390-Book-Details-1-2024-07-03-14-48-28" border="0"></a>
 
+#### Customer Sign-up page
 <a href="https://ibb.co/CbndzW3"><img src="https://i.ibb.co/bsrhP7M/screencapture-localhost-44390-Home-Sign-Up-2024-07-03-14-37-38.png" alt="screencapture-localhost-44390-Home-Sign-Up-2024-07-03-14-37-38" border="0"></a>
 
+#### Customer Login page
 <a href="https://ibb.co/D9nGBwn"><img src="https://i.ibb.co/9bjwxyj/screencapture-localhost-44390-Home-Login-2024-07-03-14-37-51.png" alt="screencapture-localhost-44390-Home-Login-2024-07-03-14-37-51" border="0"></a><br /><a target='_blank' href='https://freeonlinedice.com/'>roll 3 dice</a><br />
 
+#### Customer Dashboard page
 <a href="https://ibb.co/n8PwqWJ"><img src="https://i.ibb.co/prh16mF/screencapture-localhost-44390-Customer-2024-07-03-14-45-27.png" alt="screencapture-localhost-44390-Customer-2024-07-03-14-45-27" border="0"></a>
 
+#### Add to cart page
 <a href="https://ibb.co/dBgjWLn"><img src="https://i.ibb.co/rksF7cn/screencapture-localhost-44390-Cart-2024-07-03-14-47-04.png" alt="screencapture-localhost-44390-Cart-2024-07-03-14-47-04" border="0"></a>
 
+#### Book Order Confirm page
 <a href="https://ibb.co/XVQBM5C"><img src="https://i.ibb.co/yV9T7kQ/screencapture-localhost-44390-Book-Order-Details-12-2024-07-03-14-47-38.png" alt="screencapture-localhost-44390-Book-Order-Details-12-2024-07-03-14-47-38" border="0"></a>
 
+#### Stripe Payment Portal page
 <a href="https://ibb.co/fH18Fmk"><img src="https://i.ibb.co/tDmZKyq/screencapture-checkout-stripe-c-pay-cs-test-a1hq-YMnq-OB1-Q9-KSWIFi0xd-Uo2-Og-WNB3d7dq-RQC2-A39nc-Of.png" alt="screencapture-checkout-stripe-c-pay-cs-test-a1hq-YMnq-OB1-Q9-KSWIFi0xd-Uo2-Og-WNB3d7dq-RQC2-A39nc-Of" border="0"></a>
 
+#### Admin Dashboard page
 <a href="https://ibb.co/Lz8Yvsm"><img src="https://i.ibb.co/1fL7b41/screencapture-localhost-44390-Admin-Dashboard-2024-07-03-15-02-40.png" alt="screencapture-localhost-44390-Admin-Dashboard-2024-07-03-15-02-40" border="0"></a>
 
+#### Add Author Detail by Admin page
 <a href="https://ibb.co/pyRmnyj"><img src="https://i.ibb.co/JQyhCQj/screencapture-localhost-44390-Author-Add-Author-2024-07-03-14-49-11-1.png" alt="screencapture-localhost-44390-Author-Add-Author-2024-07-03-14-49-11-1" border="0"></a>
 
+#### Manage Book Details page - Admin Panel
 <a href="https://ibb.co/kg91T7v"><img src="https://i.ibb.co/gMPV82h/screencapture-localhost-44390-Book-2024-07-03-14-49-31.png" alt="screencapture-localhost-44390-Book-2024-07-03-14-49-31" border="0"></a>
 
+#### Manage Publisher page - Admin
 <a href="https://ibb.co/SPt1QPB"><img src="https://i.ibb.co/Ns9k1sK/screencapture-localhost-44390-Publisher-2024-07-03-14-49-58.png" alt="screencapture-localhost-44390-Publisher-2024-07-03-14-49-58" border="0"></a>
 
 
@@ -69,18 +81,21 @@ A comprehensive E-Book web-based application has been developed using ASP.NET wi
 - Clone the Repo into Local machine
 
 ```
-git clone https://github.com/Mushkir/skill-wave-service-hiring-app.git
+git clone https://github.com/Mushkir/FindMyBook.git
 ```
+- Open the project in Visual Studio
 
-- Open the DB Folder
+- Open the Models folder in Solution Explorer
 
-- Import the database file into phpmyadmin
+- Open `FindMyBookDbModel.edmx`
 
-- Run the server (XAMPP / WAMP)
+- Open `FindMyBookDbModel.tt`
 
-- Copy the Project file into "htdocs" folder.
+- Create Database with the name of `findMyBook` in MSSQL Server
 
-- Open the browser and type as `localhost/skill-wave-service-hiring-app/` and Press enter.
+- Create the tables in the `FindMyBookDbModel.tt` in MSSQL Server
+
+- For further explanation & configuration, refer the following link: [YouTube](https://youtu.be/92VOAYiVlxg?si=cv3gFGfRD6iLUMk4)
 
 - Now you can explore the project.
 
