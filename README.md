@@ -49,7 +49,7 @@ A comprehensive E-Book web-based application has been developed using ASP.NET wi
 <a href="https://ibb.co/CbndzW3"><img src="https://i.ibb.co/bsrhP7M/screencapture-localhost-44390-Home-Sign-Up-2024-07-03-14-37-38.png" alt="screencapture-localhost-44390-Home-Sign-Up-2024-07-03-14-37-38" border="0"></a>
 
 #### Customer Login page
-<a href="https://ibb.co/D9nGBwn"><img src="https://i.ibb.co/9bjwxyj/screencapture-localhost-44390-Home-Login-2024-07-03-14-37-51.png" alt="screencapture-localhost-44390-Home-Login-2024-07-03-14-37-51" border="0"></a><br /><a target='_blank' href='https://freeonlinedice.com/'>roll 3 dice</a><br />
+<a href="https://ibb.co/D9nGBwn"><img src="https://i.ibb.co/9bjwxyj/screencapture-localhost-44390-Home-Login-2024-07-03-14-37-51.png" alt="screencapture-localhost-44390-Home-Login-2024-07-03-14-37-51" border="0"></a><br /><a target='_blank' href='https://freeonlinedice.com/'></a><br />
 
 #### Customer Dashboard page
 <a href="https://ibb.co/n8PwqWJ"><img src="https://i.ibb.co/prh16mF/screencapture-localhost-44390-Customer-2024-07-03-14-45-27.png" alt="screencapture-localhost-44390-Customer-2024-07-03-14-45-27" border="0"></a>
