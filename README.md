@@ -36,7 +36,7 @@ A comprehensive E-Book web-based application has been developed using ASP.NET wi
 
 ## Screenshots
 
-![Homepage]
+#### Homepage
 <a href="https://ibb.co/gvzgkJR"><img src="https://i.ibb.co/8z68197/screencapture-localhost-44390-2024-07-03-14-36-33.png" alt="screencapture-localhost-44390-2024-07-03-14-36-33" border="0"></a>
 
 <a href="https://ibb.co/WWMTcPY"><img src="https://i.ibb.co/0j6wfFd/screencapture-localhost-44390-Book-Find-Books-2024-07-03-14-36-59.png" alt="screencapture-localhost-44390-Book-Find-Books-2024-07-03-14-36-59" border="0"></a>
